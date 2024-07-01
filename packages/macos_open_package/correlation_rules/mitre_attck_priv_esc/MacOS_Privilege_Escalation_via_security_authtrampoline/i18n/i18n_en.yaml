@@ -1,0 +1,4 @@
+Description: 'Rule detects running unsidned executable and possible privilege escalation done via "security_authtrampoline" utility that prompts the user for credentials.Although this function can execute any process temporarily with root privileges, it is not recommended except for installers that have to be able to run from CDs and self-repairing setuid tools. Moreover API is depricated.'
+EventDescriptions:
+    - LocalizationId: 'corrname_MacOS_Privilege_Escalation_via_security_authtrampoline'
+      EventDescription: 'Privilege escalation attempt with unsigned executable {datafield7} via security_authtrampoline on the host {event_src.host}'
