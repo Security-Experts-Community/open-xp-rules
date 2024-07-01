@@ -1,0 +1,32 @@
+ContentAutoName: CA_4624_4625_LogonType2_LogonProc_chrome
+ExpertContext:
+    Created: 26.06.2024
+    Updated: 27.06.2024
+    KnowledgeHolders:
+        - Sagatjkeee
+    Usecases: []
+    Falsepositives:
+        - Событие 4625 с типом входа - 2, может возникать при подключении через рдп, если в процессе сессии на удалённом хосте была попытка запуска браузера с повышенными привилегиями (через "runas"), в случае, если введен неверный пароль или окно UAC закрывается (возникающее, например, при обновлении браузера). Тестировалось на браузерах Firefox и Chrome.
+    References:
+        - https://learn.microsoft.com/en-us/windows-server/security/windows-authentication/windows-logon-scenarios#BKMK_InteractiveLogon
+        - https://community.splunk.com/t5/All-Apps-and-Add-ons/EventCode-4625-LogonType-2-by-Google-Chrome/m-p/414012
+        - https://support.google.com/chrome/thread/7328710/chrome-requesting-and-failing-windows-account-logon-windows-10-64bit?hl=en
+    Improvements:
+        - Для события 4625 смотреть рядом стоящие события 4624 с типом входа - 10(rdp) для исключения FP.
+        - Смотреть на события в окрестности связанные с обновлением браузера для исключения FP.
+    DataSources:
+        - Provider: Microsoft-Windows-Security-Auditing
+          EventID:
+              - 4624
+              - 4625
+ObjectId: SEC-CR-575668016
+EventDescriptions:
+    - Criteria: correlation_name = "CA_4624_4625_LogonType2_LogonProc_chrome"
+      LocalizationId: corrname_CA_4624_4625_LogonType2_LogonProc_chrome
+ContentRelations:
+    Implements:
+        ATTACK:
+            credential-access:
+                - T1556
+            initial-access:
+                - T1078

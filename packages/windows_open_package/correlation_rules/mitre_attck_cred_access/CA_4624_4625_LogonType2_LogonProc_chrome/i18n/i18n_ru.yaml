@@ -1,0 +1,4 @@
+Description: 'Обнаружена попытка локального входа от имени процесса chrome.exe'
+EventDescriptions:
+    - LocalizationId: 'corrname_CA_4624_4625_LogonType2_LogonProc_chrome'
+      EventDescription: 'На узле {event_src.host} пользователь {subject.account.domain}\{subject.account.name} совершил попытку входа со статусом {status} от имени процесса {subject.process.fullpath}'

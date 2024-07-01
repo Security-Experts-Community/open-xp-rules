@@ -1,0 +1,4 @@
+Description: 'Local login attempt detected as chrome.exe process'
+EventDescriptions:
+    - LocalizationId: 'corrname_CA_4624_4625_LogonType2_LogonProc_chrome'
+      EventDescription: 'On host {event_src.host} user {subject.account.domain}\{subject.account.name} attempted to log in with status {status} on behalf of process {subject.process.fullpath}'
