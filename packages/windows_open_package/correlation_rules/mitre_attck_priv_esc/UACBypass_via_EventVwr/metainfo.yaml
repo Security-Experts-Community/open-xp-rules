@@ -1,0 +1,31 @@
+ContentAutoName: UACBypass_via_EventVwr
+ExpertContext:
+    Created: 01.07.2024
+    Updated: 01.07.2024
+    KnowledgeHolders:
+        - driverenok
+    Usecases:
+        - Атакующие могут изменять ассоциации, связанные с .msc файлами, чтобы обходить UAC
+    Falsepositives: []
+    References:
+        - https://www.fortinet.com/blog/threat-research/malicious-macro-bypasses-uac-to-elevate-privilege-for-fareit-malware
+        - https://enigma0x3.net/2016/08/15/fileless-uac-bypass-using-eventvwr-exe-and-registry-hijacking/
+    Improvements: []
+    DataSources:
+        - Provider: Microsoft-Windows-Security-Auditing
+          EventID:
+              - 4657
+              - 4688
+        - Provider: Microsoft-Windows-Sysmon
+          EventID:
+              - 13
+              - 1
+ObjectId: SEC-CR-180905831
+ContentRelations:
+    Implements:
+        ATTACK:
+            privilege-escalation:
+                - T1548.002
+EventDescriptions:
+    - Criteria: correlation_name = "UACBypass_via_EventVwr"
+      LocalizationId: corrname_UACBypass_via_EventVwr

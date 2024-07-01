@@ -1,0 +1,150 @@
+event Modify_mscfile_Association:
+    key:
+        event_src.host
+    filter {
+        filter::NotFromCorrelator() and((
+            event_src.title == "windows" and
+            msgid == "4657"
+        ) or (
+            event_src.title == "sysmon" and
+            in_list(["12", "13"], msgid) == True
+            )
+        ) and
+        in_list(["create", "modify"], lower(action)) == True and
+        lower(object.name) == "(default)" and
+        regex(object.path, ".*\\\\mscfile\\\\shell\\\\open\\\\command\\\\.*", 0) != null
+    }
+
+event CreateChild_of_EventVwr:
+    key:
+        event_src.host
+    filter {
+        filter::NotFromCorrelator() and
+        filter::ProcessStart_Windows_any() and
+        lower(object.account.privileges) == "high" and
+        lower(object.process.parent.name) == "eventvwr.exe" and 
+        match(lower(object.process.fullpath), "?:\\\\windows\\\\system32\\\\mmc.exe") != True
+    }
+
+rule UACBypass_via_EventVwr: Modify_mscfile_Association or CreateChild_of_EventVwr
+
+    on Modify_mscfile_Association {
+        # subject
+        $subject = subject
+
+        $subject.account.name = subject.account.name
+        $subject.account.domain = subject.account.domain
+        $subject.account.session_id = subject.account.session_id
+        $subject.account.id = subject.account.id
+        $subject.account.privileges = subject.account.privileges
+
+        $subject.process.id = subject.process.id
+        $subject.process.name = subject.process.name
+        $subject.process.path = subject.process.path
+        $subject.process.fullpath = subject.process.fullpath
+
+        # action
+        $action = action
+
+        # object
+        $object = object
+
+        $object.name = object.name
+        $object.type = object.type
+        $object.path = object.path
+        $object.fullpath = object.fullpath
+        $object.value = object.value
+        $object.new_value = object.new_value
+
+        # status
+        $status = status
+
+        # event src host
+        $event_src.host = event_src.host
+        $event_src.fqdn = event_src.fqdn
+        $event_src.hostname = event_src.hostname
+        $event_src.ip = event_src.ip
+        $event_src.asset = event_src.asset
+        $event_src.vendor = event_src.vendor
+        $event_src.title = event_src.title
+        $event_src.subsys = event_src.subsys
+        $event_src.category = event_src.category
+    }
+    on CreateChild_of_EventVwr {
+       # subject
+        $subject = subject
+
+        $subject.account.name = subject.account.name
+        $subject.account.domain = subject.account.domain
+        $subject.account.session_id = subject.account.session_id
+        $subject.account.id = subject.account.id
+        $subject.account.privileges = subject.account.privileges
+
+        # action
+        $action = action
+
+        # object
+        $object = object
+
+        $object.account.session_id = object.account.session_id
+        $object.account.name = object.account.name
+        $object.account.domain = object.account.domain
+        $object.account.id = object.account.id
+        $object.account.privileges = object.account.privileges
+
+        $object.process.id = object.process.id
+        $object.process.name = object.process.name
+        $object.process.path = object.process.path
+        $object.process.fullpath = object.process.fullpath
+        $object.process.hash = object.process.hash
+        $object.process.hash.md5 = object.process.hash.md5
+        $object.process.hash.sha1 = object.process.hash.sha1
+        $object.process.hash.sha256 = object.process.hash.sha256
+        $object.process.version = object.process.version
+        $object.process.cmdline = object.process.cmdline
+        $object.process.guid = object.process.guid
+        $object.process.meta = object.process.meta
+        $object.process.original_name = object.process.original_name
+        $object.process.cwd = object.process.cwd
+        $object.process.chain = object.process.chain
+
+        $object.process.parent.id = object.process.parent.id
+        $object.process.parent.name = object.process.parent.name
+        $object.process.parent.path = object.process.parent.path
+        $object.process.parent.fullpath = object.process.parent.fullpath
+        $object.process.parent.guid = object.process.parent.guid
+        $object.process.parent.cmdline = object.process.parent.cmdline
+
+        # status
+        $status = status
+
+        # event src host
+        $event_src.host = event_src.host
+        $event_src.fqdn = event_src.fqdn
+        $event_src.hostname = event_src.hostname
+        $event_src.ip = event_src.ip
+        $event_src.asset = event_src.asset
+        $event_src.vendor = event_src.vendor
+        $event_src.title = event_src.title
+        $event_src.subsys = event_src.subsys
+        $event_src.category = event_src.category
+    }
+
+emit {
+    $correlation_name = "UACBypass_via_EventVwr"
+    $correlation_type = "incident"
+
+    $importance = "high"
+
+    $category.generic = "Attack"
+    $category.high = "Privilege Escalation"
+    $category.low = "Abuse Elevation Control Mechanism: Bypass User Account Control"
+
+    $incident.aggregation.key = join([$correlation_name, lower($event_src.host)], "|")
+    $incident.aggregation.timeout = 2h
+
+    $incident.severity = $importance
+
+    $incident.category = "ProtectionBypassing"
+    $incident.type = "MaUnauthorizedAccessfunction"
+}

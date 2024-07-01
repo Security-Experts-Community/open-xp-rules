@@ -1,0 +1,4 @@
+Description: 'UAC bypass via EventVwr'
+EventDescriptions:
+    - LocalizationId: 'corrname_UACBypass_via_EventVwr'
+      EventDescription: 'UAC bypass via changing .msc file association and EventVwr console has been detected at host {event_src.host}'

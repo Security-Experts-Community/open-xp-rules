@@ -1,0 +1,4 @@
+Description: 'Обнаружен обход UAC через оснастку EventVwr'
+EventDescriptions:
+    - LocalizationId: 'corrname_UACBypass_via_EventVwr'
+      EventDescription: 'Обнаружен обход UAC через изменение ассоциации файлов .msc и оснастку EventVwr на узле {event_src.host}'
