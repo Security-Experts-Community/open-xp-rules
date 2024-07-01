@@ -1,0 +1,2 @@
+# Тут будет твой тест. В секции 
+expect 1 {"_rule":"Modify_LoginHook","datafield17":"com.apple.defaults","datafield19":"LoginHook","datafield20":"/Users/user/Desktop/test.sh"}

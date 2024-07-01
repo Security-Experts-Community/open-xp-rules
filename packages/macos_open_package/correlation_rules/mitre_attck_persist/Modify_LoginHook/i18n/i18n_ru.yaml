@@ -1,0 +1,4 @@
+Description: 'Нарушители могут использовать LoginHook для закрепления в системе при входе пользователя. LoginHook — это файл plist, который указывает на скрипт, который нужно выполнить с правами root при входе пользователя в систему. Файл plist находится в файле /Library/Preferences/com.apple.loginwindow.plist и может быть изменен с помощью утилиты командной строки defaults. Также такой сценарий может быть использовал и при выходе пользователя (LogoutHook)'
+EventDescriptions:
+    - LocalizationId: 'corrname_Modify_LoginHook'
+      EventDescription: 'Попытка закрепления в системе, устанавливая на {datafield19} запуск {datafield20} с помощи утилиты {datafield17} с узла {event_src.host}'

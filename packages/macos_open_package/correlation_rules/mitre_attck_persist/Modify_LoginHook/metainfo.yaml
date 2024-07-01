@@ -1,0 +1,26 @@
+ContentAutoName: Modify_LoginHook
+ExpertContext:
+    Created: 18.06.2024
+    Updated: 18.06.2024
+    KnowledgeHolders:
+        - Sergey Golub <@leitosama>
+    Usecases:
+        - Возможное закрепление в macOS с помощью LoginHook/LogoutHook
+    Falsepositives:
+        - Использование LoginHook/LogoutHook пользователем
+    References:
+        - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1037.002/T1037.002.md
+    Improvements: []
+    DataSources:
+        - Provider: MacOS
+          EventID:
+              - es_logger_process_execution
+ObjectId: SEC-CR-132144510
+ContentRelations:
+    Implements:
+        ATTACK:
+            persistence:
+                - T1037.002
+EventDescriptions:
+    - Criteria: correlation_name = "Modify_LoginHook"
+      LocalizationId: corrname_Modify_LoginHook

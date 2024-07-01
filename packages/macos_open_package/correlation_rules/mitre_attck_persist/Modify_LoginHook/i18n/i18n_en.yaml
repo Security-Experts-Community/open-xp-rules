@@ -1,0 +1,4 @@
+Description: 'Adversaries may use a Login Hook to establish persistence executed upon user logon. A login hook is a plist file that points to a specific script to execute with root privileges upon user logon. The plist file is located in the /Library/Preferences/com.apple.loginwindow.plist file and can be modified using the defaults command-line utility. This behavior is the same for logout hooks where a script can be executed upon user logout. All hooks require administrator permissions to modify or create hooks'
+EventDescriptions:
+    - LocalizationId: 'corrname_Modify_LoginHook'
+      EventDescription: 'An attempt to persistence was made by setting {datafield20} with value {datafield19} using the {datafield17} utility on {event_src.host}'
