@@ -1,0 +1,4 @@
+Description: 'Обнаружен обход UAC через изменение переменной окружения %SYSTEMROOT%'
+EventDescriptions:
+    - LocalizationId: 'corrname_UACBypass_via_SYSTEMROOT_environment'
+      EventDescription: 'Обнаружен обход UAC через изменение переменной окружения %SYSTEMROOT% на узле {event_src.host}'

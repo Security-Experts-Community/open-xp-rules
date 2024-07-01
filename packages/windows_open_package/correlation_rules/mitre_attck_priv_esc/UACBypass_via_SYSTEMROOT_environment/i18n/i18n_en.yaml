@@ -1,0 +1,4 @@
+Description: 'UAC bypass via changing the %SYSTEMROOT% environment variable has been detected'
+EventDescriptions:
+    - LocalizationId: 'corrname_UACBypass_via_SYSTEMROOT_environment'
+      EventDescription: 'UAC bypass via changing the %SYSTEMROOT% environment variable has been detected at host {event_src.host}'

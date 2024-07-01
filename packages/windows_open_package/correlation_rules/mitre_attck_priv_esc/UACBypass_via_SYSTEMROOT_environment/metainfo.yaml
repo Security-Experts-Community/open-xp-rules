@@ -1,0 +1,30 @@
+ContentAutoName: UACBypass_via_SYSTEMROOT_environment
+ExpertContext:
+    Created: 28.06.2024
+    Updated: 01.07.2024
+    KnowledgeHolders:
+        - driverenok
+    Usecases:
+        - Ататкующие могут изменять переменную %SYSTEMROOT% чтобы обходить UAC
+    Falsepositives: []
+    References:
+        - https://attack.mitre.org/techniques/T1548/002/
+        - https://bytecode77.com/performance-monitor-privilege-escalation
+    Improvements: []
+    DataSources:
+        - Provider: Microsoft-Windows-Security-Auditing
+          EventID:
+              - 4657
+        - Provider: Microsoft-Windows-Sysmon
+          EventID:
+              - 12
+              - 13
+ObjectId: SEC-CR-135292989
+ContentRelations:
+    Implements:
+        ATTACK:
+            privilege-escalation:
+                - T1548.002
+EventDescriptions:
+    - Criteria: correlation_name = "UACBypass_via_SYSTEMROOT_environment"
+      LocalizationId: corrname_UACBypass_via_SYSTEMROOT_environment
