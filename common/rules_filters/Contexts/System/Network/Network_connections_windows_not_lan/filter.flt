@@ -1,0 +1,25 @@
+filter Network_connections_windows_not_lan() {
+	(
+		(
+			msgid == "3"
+			and event_src.title == "sysmon"
+		)
+		or
+		(
+			msgid == "5156"
+			and event_src.title == "windows"
+		)
+	)
+
+	and not (
+			in_subnet(dst.ip, "10.0.0.0/8") 
+			or in_subnet(dst.ip, "172.16.0.0/12") 
+			or in_subnet(dst.ip, "192.168.0.0/16") 
+			or in_subnet(dst.ip, "169.254.0.0/16") 
+			or in_subnet(dst.ip, "127.0.0.0/8")
+			or in_subnet(dst.ip, "100.64.0.0/10")
+		)
+
+	and direction == "egress"
+
+}

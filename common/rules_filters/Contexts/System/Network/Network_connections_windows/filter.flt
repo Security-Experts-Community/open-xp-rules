@@ -1,0 +1,13 @@
+filter Network_connections_windows() {
+	(
+		(
+			msgid == "3"
+			and event_src.title == "sysmon"
+		)
+		or
+		(
+			msgid == "5156"
+			and event_src.title == "windows"
+		)
+	)
+}

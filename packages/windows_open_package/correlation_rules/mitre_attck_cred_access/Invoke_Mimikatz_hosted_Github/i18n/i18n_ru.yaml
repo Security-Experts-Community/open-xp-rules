@@ -1,0 +1,4 @@
+Description: 'атакующие загружают модуль powershell в память для дампа lsass'
+EventDescriptions:
+    - LocalizationId: 'corrname_Invoke_Mimikatz_hosted_Github'
+      EventDescription: 'На хосте {event_src.host} процесс {subject.process.name} получил доступ к {object.process.name} после соединения с {dst.ip}:{dst.port}'

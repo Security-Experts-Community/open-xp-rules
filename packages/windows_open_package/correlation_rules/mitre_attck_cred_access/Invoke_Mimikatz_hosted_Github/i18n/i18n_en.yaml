@@ -1,0 +1,4 @@
+Description: 'attackers load the powershell module into memory for the lsass dump'
+EventDescriptions:
+    - LocalizationId: 'corrname_Invoke_Mimikatz_hosted_Github'
+      EventDescription: 'On the host {event_src.host} process {subject.process.name} got access to {object.process.name} after connecting to {dst.ip}:{dst.port}'

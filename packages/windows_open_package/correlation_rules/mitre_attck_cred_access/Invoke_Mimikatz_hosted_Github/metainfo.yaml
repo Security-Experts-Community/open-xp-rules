@@ -1,0 +1,29 @@
+ContentAutoName: Invoke_Mimikatz_hosted_Github
+ExpertContext:
+    Created: 29.06.2024
+    Updated: 29.06.2024
+    KnowledgeHolders:
+        - d3f0x0 (Vadim Varganov)
+    Usecases:
+        - attackers load the powershell module into memory for the lsass dump
+    Falsepositives:
+        - Administrative action
+    References: []
+    Improvements: []
+    DataSources:
+        - Provider: Microsoft-Windows-Sysmon
+          EventID:
+              - 10
+              - 3
+        - Provider: Microsoft-Windows-Security-Auditing
+          EventID:
+              - 5156
+ObjectId: SEC-CR-169966462
+ContentRelations:
+    Implements:
+        ATTACK:
+            credential-access:
+                - T1003.001
+EventDescriptions:
+    - Criteria: correlation_name = "Invoke_Mimikatz_hosted_Github"
+      LocalizationId: corrname_Invoke_Mimikatz_hosted_Github
