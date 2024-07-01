@@ -1,0 +1,4 @@
+Description: 'Attackers can create local user accounts to secure in the system'
+EventDescriptions:
+    - LocalizationId: 'corrname_Create_local_account'
+      EventDescription: 'A new user has been created on {event_src.host} {object.account.name} {object.name}'

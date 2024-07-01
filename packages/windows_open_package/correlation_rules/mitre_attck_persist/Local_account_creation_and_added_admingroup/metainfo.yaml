@@ -1,0 +1,26 @@
+ContentAutoName: Local_account_creation_and_added_admingroup
+ExpertContext:
+    Created: 29.06.2024
+    Updated: 29.06.2024
+    KnowledgeHolders:
+        - d3f0x0 (Vadim Varganov)
+    Usecases:
+        - Attackers create accounts for persistence
+    Falsepositives:
+        - Administrative action
+    References: []
+    Improvements: []
+    DataSources:
+        - Provider: Microsoft-Windows-Sysmon
+          EventID:
+              - 12
+              - 13
+ObjectId: SEC-CR-892600880
+ContentRelations:
+    Implements:
+        ATTACK:
+            persistence:
+                - T1136
+EventDescriptions:
+    - Criteria: correlation_name = "Local_account_creation_and_added_admingroup"
+      LocalizationId: corrname_Local_account_creation_and_added_admingroup

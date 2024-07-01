@@ -1,0 +1,4 @@
+Description: 'Атакующие могут создавать локальные аккаунты пользователей для закрепления в системе'
+EventDescriptions:
+    - LocalizationId: 'corrname_Create_local_account'
+      EventDescription: 'На {event_src.host} создан новый пользователь {object.account.name} {object.name}'

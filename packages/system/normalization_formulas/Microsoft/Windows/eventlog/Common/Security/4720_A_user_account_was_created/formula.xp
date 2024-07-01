@@ -14,6 +14,7 @@ subject.account.session_id = maybe_number16($Data["SubjectLogonId"])
 object.account.name = lower($Data["TargetUserName"])
 object.account.domain = lower($Data["TargetDomainName"])
 object.account.id = $Data["TargetSid"]
+object.account.fullname = $Data["UserPrincipalName"]
 
 time = $TimeCreated["SystemTime"]
 msgid = $EventID

@@ -1,0 +1,4 @@
+Description: 'An account has been created on the host and a registry key change has been detected, indicating that members of the local Administrators group have changed'
+EventDescriptions:
+    - LocalizationId: 'corrname_Local_account_creation_and_added_admingroup'
+      EventDescription: 'A new account {object.name} has been created on {event_src.host} and added to the local Administrators group'

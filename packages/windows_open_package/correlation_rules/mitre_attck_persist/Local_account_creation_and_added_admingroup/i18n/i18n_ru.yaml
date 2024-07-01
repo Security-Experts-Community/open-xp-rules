@@ -1,0 +1,4 @@
+Description: 'На хосте создана учетная запись и обнаружено изменение ключа реестра, свидетельствующее об изменении членов локальной группы Администраторы'
+EventDescriptions:
+    - LocalizationId: 'corrname_Local_account_creation_and_added_admingroup'
+      EventDescription: 'На {event_stc.host} создана новая учетная запись {object.name} и добавлена в локальную группу Администраторы'
