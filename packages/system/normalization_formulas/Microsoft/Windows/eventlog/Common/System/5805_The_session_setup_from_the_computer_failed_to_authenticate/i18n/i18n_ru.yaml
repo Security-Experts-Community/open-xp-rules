@@ -1,0 +1,4 @@
+Description: 'Ошибка проверки подлинности для сеанса компьютера'
+EventDescriptions:
+    - LocalizationId: 'LOC_Microsoft_Windows_eventlog_Common_System_5805'
+      EventDescription: 'Не удалось выполнить проверку подлинности для сеанса компьютера {subject.account.name} на узле {event_src.host}'

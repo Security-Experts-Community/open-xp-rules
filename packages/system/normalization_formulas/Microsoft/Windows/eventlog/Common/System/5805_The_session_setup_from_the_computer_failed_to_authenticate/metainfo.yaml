@@ -1,0 +1,13 @@
+EventDescriptions:
+    - Criteria: id = "Microsoft_Windows_eventlog_Common_System_5805_The_session_setup_from_the_computer_failed_to_authenticate"
+      LocalizationId: LOC_Microsoft_Windows_eventlog_Common_System_5805
+ExpertContext:
+    Created: 26.06.2024
+    Updated: 26.06.2024
+    KnowledgeHolders:
+        - driverenok
+    Usecases: []
+    Falsepositives: []
+    References: []
+    Improvements: []
+ObjectId: SEC-NF-314889845

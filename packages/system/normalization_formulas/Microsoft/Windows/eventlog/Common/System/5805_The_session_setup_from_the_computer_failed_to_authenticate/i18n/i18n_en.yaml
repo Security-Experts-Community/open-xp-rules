@@ -1,0 +1,4 @@
+Description: 'The session setup from the computer failed to authenticate'
+EventDescriptions:
+    - LocalizationId: 'LOC_Microsoft_Windows_eventlog_Common_System_5805'
+      EventDescription: 'The session setup from the computer {subject.account.name} failed to authenticate on host {event_src.host}'
