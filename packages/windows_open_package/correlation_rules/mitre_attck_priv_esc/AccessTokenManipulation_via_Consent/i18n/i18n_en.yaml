@@ -1,0 +1,4 @@
+Description: 'The launch of child processes with different Access Tokens was detected'
+EventDescriptions:
+    - LocalizationId: 'corrname_AccessTokenManipulation_via_Consent'
+      EventDescription: 'Process with PID {object.process.parent.id} escalate own privileges:{alert.key} afted lauched (subject.process.name) process at host {event_src.host}'
