@@ -1,0 +1,4 @@
+Description: 'Added a file with the extension *.nib {object.fullpath}'
+EventDescriptions:
+    - LocalizationId: 'corrname_MacOS_Subrule_DirtyNIB'
+      EventDescription: 'correlation_name = "Subrule_DirtyNIB"'

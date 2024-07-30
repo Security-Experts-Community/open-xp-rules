@@ -1,0 +1,4 @@
+Description: 'Выявлет признаки тояна Shlayer, распространяющегося под видом обновлений для Adobe Flash Player.'
+EventDescriptions:
+    - LocalizationId: 'corrname_MacOS_Trojan_Downloader_OSX_Shlayer'
+      EventDescription: 'Обнаружены признаки трояна Shlayer в каталоге {object.process.cwd} на узле {event_src.host}'

@@ -1,0 +1,144 @@
+# Trojan Shlayer use bash script that decode another script from one of its files:
+#
+# 1: #!/bin/bash
+# 2: cd "$(dirname "$BASH_SOURCE")"
+# 3: fileDir="$(dirname "$(pwd -P)")"
+# 4: eval "$(openssl enc -base64 -d -aes-256-cbc -nosalt -pass pass:2833846567 <"$fileDir"/Resources/enc)"
+#
+# To detect the execution of this script, we can check the execution of the `dirname` utility 
+# and the subsequent execution of `openssl` with certain parameters.
+# The actual password may differ in different versions of the Trojan, 
+# but other parameters always remain the same.
+# Including `subject.process.name` and `object.process.cwd` in the list of keys 
+# are important becase we need to avoid possible false positives.
+# In case of execution from such bash script (as shown above) `subject.process.name` and `object.process.cwd` must be equal.
+
+event Dirname_exec:
+    key:
+        event_src.host, subject.process.name, object.process.cwd
+    filter {
+        filter::NotFromCorrelator()
+        and event_src.title == "edr"
+        and event_src.vendor == "positive_technologies"
+        and id == 'PT_Positive_Technologies_XDR_es_logger_process_execution'
+        and subject.process.name == 'bash'
+        and object.process.name == 'dirname'
+    }
+
+event Openssl_exec:
+    key:
+        event_src.host, subject.process.name, object.process.cwd
+    filter {
+        filter::NotFromCorrelator()
+        and event_src.title == "edr" 
+        and event_src.vendor == "positive_technologies"
+        and id == 'PT_Positive_Technologies_XDR_es_logger_process_execution'
+        and subject.process.name == 'bash'
+        and object.process.name == 'openssl'
+        and regex(object.process.cmdline, "openssl enc -base64 -d -aes-256-cbc -nosalt -pass pass:\S+", 0) != null
+    }
+
+rule MacOS_Trojan_Downloader_OSX_Shlayer: Dirname_exec -> Openssl_exec within 2s
+    on Openssl_exec {
+        $action = action
+        $object = object
+        $status = status
+
+        $subject.account.id = subject.account.id
+        $subject.account.domain = subject.account.domain
+        $subject.account.fullname = subject.account.fullname
+        $subject.account.name = subject.account.name
+        $subject.account.session_id = subject.account.session_id
+        $subject.type = subject.type
+
+        $subject.process.name = subject.process.name
+        $subject.process.id = subject.process.id
+        $subject.process.path = subject.process.path
+        $subject.process.fullpath = subject.process.fullpath
+        $subject.process.cmdline = subject.process.cmdline
+        $subject.process.cwd = subject.process.cwd
+        $subject.process.meta = subject.process.meta
+        $subject.process.parent.id = subject.process.parent.id
+        $subject.process.chain = subject.process.chain
+        
+        $object.account.name = object.account.name # root
+        $object.account.domain = object.account.domain
+        $object.account.id = object.account.id
+        $object.account.group = object.account.group
+        
+        $object.process.name = object.process.name
+        $object.process.id = object.process.id
+        $object.process.path = object.process.path
+        $object.process.fullpath = object.process.fullpath
+        $object.process.cmdline = object.process.cmdline
+        $object.process.meta = object.process.meta
+        $object.process.cwd = object.process.cwd
+        $object.process.parent.id = object.process.parent.id
+        $object.process.chain = object.process.chain
+     
+        $object.name = object.name
+        $object.domain = object.domain
+        $object.type = object.type
+        $object.path = object.path
+        $object.fullpath = object.fullpath
+        $object.property = object.property
+        $object.value = object.value
+        $object.state = object.state       
+      
+        $logon_service = logon_service
+        
+        $protocol = protocol
+        
+        $direction = direction
+        
+        $datafield1 = datafield1
+        $datafield2 = datafield2
+        $datafield3 = datafield3
+        $datafield4 = datafield4
+        $datafield5 = datafield5
+        $datafield6 = datafield6
+        $datafield7 = datafield7
+        $datafield8 = datafield8
+        $datafield9 = datafield9
+        $datafield10 = datafield10      
+        $datafield11 = datafield11
+        $datafield12 = datafield12
+        $datafield13 = datafield13
+        $datafield14 = datafield14
+        $datafield15 = datafield15
+        $datafield16 = datafield16
+        $datafield17 = datafield17        
+        $datafield18 = datafield18 # chain with PID for subject
+        $datafield19 = datafield19 # chain with PID for object
+        $datafield20 = datafield20
+        
+        $event_src.host = event_src.host
+        $event_src.fqdn = event_src.fqdn
+        $event_src.hostname = event_src.hostname
+        $event_src.ip = event_src.ip
+        $event_src.asset = event_src.asset
+        $event_src.vendor = event_src.vendor
+        $event_src.title = event_src.title
+        $event_src.subsys = event_src.subsys
+        $event_src.category = event_src.category
+        $event_src.rule = event_src.rule
+               
+        #$alert.key =           
+        #$alert.context = 
+        #$alert.regex_match = 
+    }
+
+emit {  
+    $correlation_type = "event"
+
+    $importance = "high"
+
+    $category.generic = "Attack"
+    $category.high = "Execution"
+    $category.low = "Command and Scripting Interpreter: Unix Shell"
+
+    $incident.aggregation.key = join([$correlation_name, $event_src.host, $alert.key], "|")
+    $incident.severity = $importance
+    $incident.category = "Undefined"
+    $incident.aggregation.timeout = 2h
+}

@@ -1,0 +1,64 @@
+event Create_dirty_nib:
+    key:
+        event_src.host, datafield1
+    filter {
+        correlation_name == "MacOS_Subrule_DirtyNIB"
+    } 
+
+event Execute_vuln_app:
+    key:
+        event_src.host, object.process.name
+    filter {
+        filter::NotFromCorrelator()
+        and id == "PT_Positive_Technologies_XDR_es_logger_process_execution"
+    } 
+
+rule MacOS_DirtyNIB: (Create_dirty_nib -> Execute_vuln_app) timer 5m
+
+on Create_dirty_nib {
+    $object = object
+    $object.name = object.name
+    $object.path = object.path
+    $object.fullpath = object.fullpath
+}
+
+on Execute_vuln_app {
+
+    # checking that the paths match
+    if regex($object.path, "(.*)\.app", 1) != regex(object.process.fullpath, "(.*)\.app", 1) then
+        close
+    endif
+
+    $subject = object
+    $subject.process.hash = object.hash
+
+    $subject.process.cmdline = object.process.cmdline
+    $subject.process.cwd = object.process.cwd
+    $subject.process.id = object.process.id
+    $subject.process.name = object.process.name
+    $subject.process.path = object.process.path
+    $subject.process.fullpath = object.process.fullpath
+    $subject.process.parent.id = object.process.parent.id
+
+    $subject.account.id = subject.account.id
+    $subject.account.session_id = subject.account.session_id
+
+    $event_src.ip = event_src.ip
+    $event_src.hostname = event_src.hostname
+    $event_src.host = event_src.host
+    $action = action
+    $status = status
+}
+
+emit {
+    $correlation_type = "incident"
+    $importance = "medium"
+
+    $category.generic = "Attack"
+    $category.high = "Defense Evasion"
+
+    $incident.aggregation.key = join([$correlation_name, $event_src.host, $subject.process.name], "|")
+    $incident.severity = $importance
+    $incident.category = "SoftwareSuspiciousActivity"
+    $incident.aggregation.timeout = 2h
+}

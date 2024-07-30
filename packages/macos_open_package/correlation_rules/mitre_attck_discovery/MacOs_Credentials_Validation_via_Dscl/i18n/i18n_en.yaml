@@ -1,0 +1,6 @@
+Description: 'Validating account passwords by calling the standard utility /usr/bin/dsc is a suspicious activity. Thus, an attacker can verify previously received credentials in plain text for further development of the attack'
+EventDescriptions:
+    - LocalizationId: 'corrname_MacOS_Credentials_Validation_via_Dscl'
+      EventDescription: "A suspicious way to validate the local user credentials {datafield 19} with the password {data field 20} using the command '{object.process.cmdline}' on the host {event_src.host}"
+    - LocalizationId: 'corrname_MacOS_Credentials_Validation_via_Dscl_2'
+      EventDescription: "A suspicious way to validate user credentials {datafield19} with the password {datafield20} on the data source '{reason}' from the node {event_src.host}"

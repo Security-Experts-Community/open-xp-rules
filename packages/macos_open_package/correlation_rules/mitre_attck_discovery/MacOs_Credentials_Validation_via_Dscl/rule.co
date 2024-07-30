@@ -1,0 +1,124 @@
+event PasswordValidation_Via_Dscl_Event:
+    key:
+        event_src.host
+    filter {
+        filter::NotFromCorrelator()
+        and object.process.fullpath == "/usr/bin/dscl"
+        # dscl . authonly user 123
+        # There are several possible options (-authonly and authonly), since a dash is not required
+        # dscl /LDAPv3/10.0.1.42/Groups/admin authonly user 123
+        and regex(object.process.cmdline, "\\bdscl\\b\s+(.*?)\s+\\b(?:-)?authonly\\b\s+(\w+)\s+(\w+)", 0) != null
+    }
+
+
+rule MacOS_Credentials_Validation_via_Dscl: PasswordValidation_Via_Dscl_Event
+
+    init {
+        $labels = "w_auto"
+    }
+
+    on PasswordValidation_Via_Dscl_Event {
+        $action = action
+        $object = object
+        $status = status
+
+        $subject.account.name = subject.account.name
+        $subject.account.fullname = subject.account.fullname
+        $subject.account.domain = subject.account.domain
+        $subject.account.session_id = subject.account.session_id
+        $subject.account.id = subject.account.id
+        $subject.account.privileges = subject.account.privileges
+
+        $subject.process.id = subject.process.id
+        $subject.process.name = subject.process.name
+        $subject.process.path = subject.process.path
+        $subject.process.fullpath = subject.process.fullpath
+        $subject.process.hash = subject.process.hash
+        $subject.process.version = subject.process.version
+        $subject.process.cmdline = subject.process.cmdline
+        $subject.process.guid = subject.process.guid
+        $subject.process.meta = subject.process.meta
+        $subject.process.original_name = subject.process.original_name
+        $subject.process.cwd = subject.process.cwd
+        $subject.process.chain = subject.process.chain
+        
+        $subject.process.parent.id = subject.process.parent.id
+        $subject.process.parent.name = subject.process.parent.name
+        $subject.process.parent.path = subject.process.parent.path
+        $subject.process.parent.fullpath = subject.process.parent.fullpath
+        $subject.process.parent.cmdline = subject.process.parent.cmdline
+
+        $object.process.id = object.process.id
+        $object.process.name = object.process.name
+        $object.process.path = object.process.path
+        $object.process.fullpath = object.process.fullpath
+        $object.process.hash = object.process.hash
+        $object.process.hash.md5 = object.process.hash.md5
+        $object.process.hash.sha1 = object.process.hash.sha1
+        $object.process.hash.sha256 = object.process.hash.sha256
+        $object.process.version = object.process.version
+        $object.process.cmdline = object.process.cmdline
+        $object.process.guid = object.process.guid
+        $object.process.meta = object.process.meta
+        $object.process.original_name = object.process.original_name
+        $object.process.cwd = object.process.cwd
+        $object.process.chain = object.process.chain
+        
+        $object.process.parent.id = object.process.parent.id
+        $object.process.parent.name = object.process.parent.name
+        $object.process.parent.path = object.process.parent.path
+        $object.process.parent.fullpath = object.process.parent.fullpath
+        $object.process.parent.cmdline = object.process.parent.cmdline
+
+        $event_src.ip = event_src.ip
+        $event_src.hostname = event_src.hostname
+        $event_src.host = event_src.host
+        $event_src.asset = event_src.asset
+        $event_src.title = event_src.title
+        $event_src.subsys = event_src.subsys
+        $event_src.vendor = event_src.vendor
+        $event_src.category = event_src.category
+        $event_src.rule = event_src.rule
+
+        $datafield1 = datafield1
+        $datafield2 = datafield2
+        $datafield3 = datafield3
+        $datafield4 = datafield4
+        $datafield5 = datafield5
+        $datafield6 = datafield6
+        $datafield7 = datafield7
+        $datafield8 = datafield8
+        $datafield9 = datafield9
+        $datafield10 = datafield10
+        $datafield11 = datafield11
+        $datafield12 = datafield12
+        $datafield13 = datafield13
+        $datafield14 = datafield14
+        $datafield15 = datafield15
+        $datafield16 = datafield16
+        $datafield17 = datafield17
+        $datafield18 = datafield18
+
+        $reason = regex(object.process.cmdline, "\\bdscl\\b\s+(.*?)\s+\\b(?:-)?authonly\\b\s+(\w+)\s+(\w+)", 1)
+        $datafield19 = regex(object.process.cmdline, "\\bdscl\\b\s+(.*?)\s+\\b(?:-)?authonly\\b\s+(\w+)\s+(\w+)", 2)
+        $datafield20 = regex(object.process.cmdline, "\\bdscl\\b\s+(.*?)\s+\\b(?:-)?authonly\\b\s+(\w+)\s+(\w+)", 3)
+    }
+
+    emit {
+        $correlation_type = "event"
+        $importance = "medium"
+
+        $category.generic = "Attack"
+        $category.high = "Discovery"
+
+        if $reason == "." then
+            $category.low = "Account Discovery: Local Accounts"
+        else
+            $category.low = "Account Discovery: Domain Accounts"
+        endif
+        
+        $incident.aggregation.key = join([$correlation_name, $event_src.host, $subject.account.id], "|")
+        $incident.severity = $importance
+        $incident.category = "SoftwareSuspiciousActivity"
+        $incident.aggregation.timeout = 2h
+    }

@@ -1,4 +1,0 @@
-Description: 'Обнаружен подозрительный запуска апплета AppleScript'
-EventDescriptions:
-    - LocalizationId: 'corrname_AppleScript_Execution'
-      EventDescription: 'Запущен подозрительный апплет AppScript {object.process.fullpath} на узле {event_src.host}'

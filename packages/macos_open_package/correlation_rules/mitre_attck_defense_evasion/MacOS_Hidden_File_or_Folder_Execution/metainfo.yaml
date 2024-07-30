@@ -1,0 +1,22 @@
+ContentAutoName: MacOS_Hidden_File_or_Folder_Execution
+ExpertContext:
+    Created: 28.06.2024
+    Updated: 30.07.2024
+    KnowledgeHolders:
+        - Protenil
+    Usecases:
+        - Атакующие могут запускать исполняемые файлы из скрытых директорий или скрывать сами исполняемые файлы, добавляя точку к названию файла или папки
+    Falsepositives:
+        - Легитимный запуск утилит, которые находятся в скрытых папках
+    References: []
+    Improvements:
+        - Нужно придумать как детектировать для случая, когда в пути к исполняемому файлу есть пробелы
+ObjectId: SEC-CR-145585043
+ContentRelations:
+    Implements:
+        ATTACK:
+            defense-evasion:
+                - T1564.001
+EventDescriptions:
+    - Criteria: correlation_name = "MacOS_Hidden_File_or_Folder_Execution"
+      LocalizationId: corrname_MacOS_Hidden_File_or_Folder_Execution

@@ -1,0 +1,4 @@
+Description: 'Запустился процесс из скрытой папки'
+EventDescriptions:
+    - LocalizationId: 'corrname_MacOS_Hidden_File_or_Folder_Execution'
+      EventDescription: 'На узле {event_src.host} запустился процесс {object.process.cmdline}. Предположительно в пути пристуствуют скрытые папки или файлы. Это может свидетельствовать о попытке обхода механозмов защиты'

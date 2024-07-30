@@ -1,0 +1,29 @@
+ContentAutoName: MacOS_Trojan_Downloader_OSX_Shlayer
+ExpertContext:
+    Created: 22.06.2024
+    Updated: 30.07.2024
+    KnowledgeHolders:
+        - Konstantin Grischenko
+    Usecases:
+        - The initial Trojan horse infection (the fake Flash Player installer) component of OSX/Shlayer leverages shell scripts to download additional malware or adware onto the infected system.
+    Falsepositives: []
+    References:
+        - https://objective-see.org/blog/blog_0x3C.html#Shlayer
+        - https://attack.mitre.org/software/S0402/
+        - https://www.intego.com/mac-security-blog/osxshlayer-new-mac-malware-comes-out-of-its-shell/
+        - https://www.cs.tufts.edu/comp/116/archive/spring2018/mnguyen.pdf
+    Improvements:
+        - Need some investigation to impove detection Trojan-Downloader.OSX.Shlayer.e variant that uses Python instead of Bash
+ObjectId: SEC-CR-283954049
+ContentRelations:
+    Implements:
+        ATTACK:
+            execution:
+                - T1059.004
+                - T1204.002
+            defense-evasion:
+                - T1140
+                - T1036.005
+EventDescriptions:
+    - Criteria: correlation_name = "MacOS_Trojan_Downloader_OSX_Shlayer"
+      LocalizationId: corrname_MacOS_Trojan_Downloader_OSX_Shlayer

@@ -1,0 +1,4 @@
+Description: 'The application {subject.process.name } launched with a potentially malicious file {object.fullpath}'
+EventDescriptions:
+    - LocalizationId: 'corrname_MacOS_DirtyNIB'
+      EventDescription: 'correlation_name = "DirtyNIB"'

@@ -1,0 +1,24 @@
+ContentAutoName: MacOS_AppleScript_Execution
+ExpertContext:
+    Created: 24.06.2024
+    Updated: 30.07.2024
+    KnowledgeHolders:
+        - Olga Fedosova
+    Usecases:
+        - Обнаруживает запуск подозрительного апплета AppleScript
+    Falsepositives: []
+    References: []
+    Improvements: []
+    DataSources:
+        - Provider: MacOS
+          EventID:
+              - 9
+ObjectId: SEC-CR-125767997
+EventDescriptions:
+    - Criteria: correlation_name = "MacOS_AppleScript_Execution"
+      LocalizationId: corrname_MacOS_AppleScript_Execution
+ContentRelations:
+    Implements:
+        ATTACK:
+            execution:
+                - T1059.002

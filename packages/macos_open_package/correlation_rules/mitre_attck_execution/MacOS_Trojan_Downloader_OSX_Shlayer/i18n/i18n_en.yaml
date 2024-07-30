@@ -1,0 +1,4 @@
+Description: 'Detects Shlayer trojan that distributes as a fake Adobe Flash Player and  installs various macOS adware on infected systems.'
+EventDescriptions:
+    - LocalizationId: 'corrname_MacOS_Trojan_Downloader_OSX_Shlayer'
+      EventDescription: 'A Shlayer trojan detected in directory  {object.process.cwd} on the host {event_src.host}'

@@ -1,0 +1,68 @@
+event HiddenFolderOrFileExecution:
+    key:
+        event_src.host
+    filter {
+        filter::NotFromCorrelator()
+        and action == "execute"
+        and object == "process"
+        and msgid == "9" 
+        and regex(object.process.cmdline, "^\/.*?\/\.[^\.\/]", 0) != NULL
+    }
+
+rule MacOS_Hidden_File_or_Folder_Execution: HiddenFolderOrFileExecution
+
+    on HiddenFolderOrFileExecution {
+        $subject.account.name = subject.account.name
+        $subject.account.domain = subject.account.domain
+        $subject.account.id = subject.account.id
+        $subject.account.session_id = subject.account.session_id
+        $subject.account.privileges = subject.account.privileges
+        $subject.type = subject.type
+        $subject.process.chain = subject.process.chain
+        
+        $object.account.name = object.account.name
+        $object.account.domain = object.account.domain
+        $object.account.id = object.account.id
+        $object.account.group = object.account.group
+        
+        $object.process.name = object.process.name
+        $object.process.id = object.process.id
+        $object.process.path = object.process.path
+        $object.process.fullpath = object.process.fullpath
+        $object.process.cmdline = object.process.cmdline
+        $object.process.meta = object.process.meta
+        $object.process.cwd = object.process.cwd
+        $object.process.parent.id = object.process.parent.id
+        $object.process.chain = object.process.chain
+        
+        $datafield1 = datafield1
+        $datafield2 = datafield2
+        $datafield3 = datafield3
+        $datafield4 = datafield4
+        $datafield5 = datafield5
+
+        $datafield18 = datafield18 # chain with PID for subject
+        $datafield19 = datafield19 # chain with PID for object
+        
+        $numfield2 = numfield2
+                
+        $event_src.ip = event_src.ip
+        $event_src.hostname = event_src.hostname
+        $event_src.fqdn = event_src.fqdn
+        $event_src.host = event_src.host
+        $event_src.asset = event_src.asset
+    }
+
+emit {  
+    $correlation_type = "event"
+    $importance = "medium"
+
+    $subject = "account" 
+    $action = "start" 
+    $object = "process"
+    $status = "success"
+
+    $category.generic = "Attack"
+    $category.high = "Defense Evasion"
+    $category.low = "Hide Artifacts: Hidden Files and Directories"
+}

@@ -1,4 +1,0 @@
-Description: 'Добавлен файл с расширением *.nib {object.fullpath}'
-EventDescriptions:
-    - LocalizationId: 'corrname_Subrule_DirtyNIB'
-      EventDescription: 'correlation_name = "Subrule_DirtyNIB"'

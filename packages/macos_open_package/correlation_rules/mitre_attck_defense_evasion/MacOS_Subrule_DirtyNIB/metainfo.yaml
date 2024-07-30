@@ -1,0 +1,20 @@
+ContentAutoName: MacOS_Subrule_DirtyNIB
+ExpertContext:
+    Created: 25.06.2024
+    Updated: 30.07.2024
+    KnowledgeHolders:
+        - d3f0x0 (Vadim Varganov)
+    Usecases:
+        - Subrule for detection DirtyNIB
+    Falsepositives:
+        - Administrative action
+    References: []
+    Improvements: []
+    DataSources:
+        - Provider: MacOS
+          EventID:
+              - 33
+ObjectId: SEC-CR-537667857
+EventDescriptions:
+    - Criteria: correlation_name = "MacOS_Subrule_DirtyNIB"
+      LocalizationId: corrname_MacOS_Subrule_DirtyNIB

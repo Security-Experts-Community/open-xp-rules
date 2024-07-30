@@ -1,0 +1,26 @@
+ContentAutoName: MacOS_DirtyNIB
+ExpertContext:
+    Created: 24.06.2024
+    Updated: 30.07.2024
+    KnowledgeHolders:
+        - d3f0x0 (Vadim Varganov)
+    Usecases: []
+    Falsepositives:
+        - Administrative action
+    References:
+        - https://blog.xpnsec.com/dirtynib/
+    Improvements: []
+    DataSources:
+        - Provider: MacOS
+          EventID:
+              - 9
+              - 33
+ObjectId: SEC-CR-122849987
+ContentRelations:
+    Implements:
+        ATTACK:
+            defense-evasion:
+                - T1574
+EventDescriptions:
+    - Criteria: correlation_name = "MacOS_DirtyNIB"
+      LocalizationId: corrname_MacOS_DirtyNIB

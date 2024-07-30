@@ -1,0 +1,4 @@
+Description: 'Suspicious AppleScript applet launch detected'
+EventDescriptions:
+    - LocalizationId: 'corrname_MacOS_AppleScript_Execution'
+      EventDescription: 'Suspicious TypeScript applet {object.process.fullpath} running on host {event_src.host}'

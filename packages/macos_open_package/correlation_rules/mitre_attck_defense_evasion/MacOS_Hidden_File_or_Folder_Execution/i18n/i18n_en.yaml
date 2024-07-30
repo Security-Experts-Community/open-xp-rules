@@ -1,0 +1,4 @@
+Description: 'The process started from a hidden folder'
+EventDescriptions:
+    - LocalizationId: 'corrname_MacOS_Hidden_File_or_Folder_Execution'
+      EventDescription: 'The {object.process.cmdline} process has been started on the {event_src.host} host. It is possible that there are hidden directories or files in the specified path. This could indicate an attempt to bypass security measures'

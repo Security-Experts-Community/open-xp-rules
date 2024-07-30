@@ -1,0 +1,6 @@
+Description: 'Валидация пароля учётных записей с помощью вызова штатной утилиты /usr/bin/dscl является подозрительной активность. Таким образом злоумышленник может проверять ранее полученные учётные данные в открытом виде для дальнейшего развития атаки'
+EventDescriptions:
+    - LocalizationId: 'corrname_MacOS_Credentials_Validation_via_Dscl'
+      EventDescription: "Подозрительный способ валидации локальных учетных данных пользователя {datafield19} с паролем {datafield20} с помощью команды '{object.process.cmdline}' на узле {event_src.host}"
+    - LocalizationId: 'corrname_MacOS_Credentials_Validation_via_Dscl_2'
+      EventDescription: "Подозрительный способ валидации учетных данных пользователя {datafield19} с паролем {datafield20} на источнике данных '{reason}' c узла {event_src.host}"
