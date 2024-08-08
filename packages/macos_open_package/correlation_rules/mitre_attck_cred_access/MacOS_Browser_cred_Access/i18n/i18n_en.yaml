@@ -1,0 +1,4 @@
+Description: 'The rule detects access to sensitive browser data by a third-party process'
+EventDescriptions:
+    - LocalizationId: 'corrname_MacOS_Browser_cred_Access'
+      EventDescription: 'Process {subject.process.name} with pid {subject.process.id} has accessed browser file {object.fullpath}'

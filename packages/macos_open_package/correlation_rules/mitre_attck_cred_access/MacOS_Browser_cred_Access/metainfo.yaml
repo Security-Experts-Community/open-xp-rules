@@ -1,0 +1,22 @@
+ContentAutoName: MacOS_Browser_cred_Access
+ExpertContext:
+    Created: 08.07.2024
+    Updated: 08.07.2024
+    KnowledgeHolders:
+        - Kirill Aparkin (Phoevek)
+    Usecases:
+        - Правило детектирует доступ к браузерным файлам сторонним процессом
+    Falsepositives:
+        - Если процесс легитимен
+    References: []
+    Improvements:
+        - Вайтлистами
+ObjectId: SEC-CR-203098059
+ContentRelations:
+    Implements:
+        ATTACK:
+            credential-access:
+                - T1555.003
+EventDescriptions:
+    - Criteria: correlation_name = "MacOS_Browser_cred_Access"
+      LocalizationId: corrname_MacOS_Browser_cred_Access
