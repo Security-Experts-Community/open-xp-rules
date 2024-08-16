@@ -1,0 +1,4 @@
+Description: 'The bitsadmin task has been canceled'
+EventDescriptions:
+    - LocalizationId: '5_Bits_cancel_job_1'
+      EventDescription: 'The bitsadmin task has been canceled on the {event_src.host} host - {object.name } created by the user {object.account.fullname}'

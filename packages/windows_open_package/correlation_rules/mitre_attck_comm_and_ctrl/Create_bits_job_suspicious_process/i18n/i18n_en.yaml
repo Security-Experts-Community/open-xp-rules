@@ -1,0 +1,4 @@
+Description: 'Creating a BITS task by a non-whitelist process'
+EventDescriptions:
+    - LocalizationId: 'corrname_Create_bits_job_suspicious_process'
+      EventDescription: 'There is a suspicious process on the {event_src.host} host {object.process.fullpath} created the BITS task'

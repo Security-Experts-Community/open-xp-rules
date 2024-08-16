@@ -1,0 +1,61 @@
+query CheckProcess($fullpath) from BITS_process_whitelist {
+    regex_match($fullpath, column::fullpath)
+}
+
+event Bits_create_job:
+    key:
+        event_src.host
+    filter {
+        msgid == "3"
+        and event_src.id == "Microsoft-Windows-Bits-Client"
+        and select_query_first("CheckProcess", [lower(object.process.fullpath)], "fullpath") == null
+    }            
+
+
+rule Create_bits_job_suspicious_process: Bits_create_job
+
+on Bits_create_job {
+
+    $object.name = object.name
+    $object.account.fullname = object.account.fullname
+    $object.account.name = object.account.name
+    $object.account.domain = object.account.domain
+
+    $object.process.fullpath = object.process.fullpath
+    $object.process.name = object.process.name 
+    $object.process.id = object.process.id
+    $object.id = object.id
+    $event_src.fqdn = event_src.fqdn
+    $event_src.hostname = event_src.hostname
+    $event_src.host = event_src.hostname
+
+    $event_src.vendor = event_src.vendor
+    $event_src.title = event_src.title
+    $event_src.subsys = event_src.subsys
+    $event_src.category = event_src.category
+    $event_src.id = event_src.id
+
+    $subject = subject
+    $action = action
+    $object = object
+    $status = status
+}
+
+
+emit {
+    $correlation_type = "incident"
+
+    $importance = "medium"
+
+    $category.generic = "Attack"
+    $category.high = "Command and Control"
+    $category.low = "Ingress Tool Transfer"
+
+    $incident.severity = "medium"
+    $incident.category = "Undefined"
+
+    $incident.aggregation.key = join([$correlation_name, $event_src.host, $object.id], "|")
+    $incident.severity = $importance
+    $incident.aggregation.timeout = 2h
+
+}

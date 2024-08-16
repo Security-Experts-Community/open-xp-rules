@@ -1,0 +1,4 @@
+Description: 'A library has been downloaded that allows you to interact with BITS'
+EventDescriptions:
+    - LocalizationId: 'corrname_Used_bits_over_custom_binary'
+      EventDescription: 'There is a suspicious process on the {event_src.host} host {subject.process.fullpath} loaded the library {object.process.fullpath}'

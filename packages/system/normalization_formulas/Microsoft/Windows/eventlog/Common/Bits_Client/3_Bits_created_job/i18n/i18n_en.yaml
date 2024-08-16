@@ -1,0 +1,4 @@
+Description: 'A bitsadmin task has been created. Can be used to start a process'
+EventDescriptions:
+    - LocalizationId: '3_Bits_created_job_1'
+      EventDescription: 'On the {event_src.host} host, the user {object.account.fullname} creates a bitsadmin task - {object.name}'

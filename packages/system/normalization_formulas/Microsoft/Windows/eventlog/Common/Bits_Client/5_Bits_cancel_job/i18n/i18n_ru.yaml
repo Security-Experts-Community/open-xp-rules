@@ -1,0 +1,4 @@
+Description: 'Отменена задача bitsadmin'
+EventDescriptions:
+    - LocalizationId: '5_Bits_cancel_job_1'
+      EventDescription: 'На хосте {event_src.host} отменена задача bitsadmin - {object.name}, созданная пользователем {object.account.fullname}'
