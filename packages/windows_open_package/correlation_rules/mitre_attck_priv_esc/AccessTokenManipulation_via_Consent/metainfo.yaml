@@ -1,0 +1,31 @@
+ObjectId: LOC-CR-330352538
+ContentAutoName: AccessTokenManipulation_via_Consent
+ExpertContext:
+    Created: 19.06.2023
+    Updated: 19.06.2023
+    KnowledgeHolders:
+        - driverenok
+    Usecases:
+        - Атакующие могут манипулировать маркерами доступа (Access Tokens) путем подмены dll, загружаемых в процесс consent.exe
+    References:
+        - https://attack.mitre.org/techniques/T1134/
+        - https://attack.mitre.org/techniques/T1548/002/
+    DataSources:
+        - Provider: Microsoft-Windows-Security-Auditing
+          EventID:
+              - 4688
+        - Provider: Microsoft-Windows-Sysmon
+          EventID:
+              - 1
+ContentRelations:
+    Implements:
+        ATTACK:
+            privilege-escalation:
+                - T1134
+                - T1548.002
+            defense-evasion:
+                - T1134
+                - T1548.002
+EventDescriptions:
+    - Criteria: correlation_name = "AccessTokenManipulation_via_Consent"
+      LocalizationId: corrname_AccessTokenManipulation_via_Consent

@@ -1,0 +1,26 @@
+ObjectId: LOC-CR-193475549
+ContentAutoName: UAC_bypass_via_AccessToken_manipulation
+ExpertContext:
+    Created: 26.06.2023
+    Updated: 25.07.2023
+    KnowledgeHolders:
+        - driverenok
+    Usecases:
+        - Атакующие могут обходить UAC путем манипуляции токенами доступа (Access Tokens)
+    References:
+        - https://attack.mitre.org/techniques/T1548/002/
+    DataSources:
+        - Provider: Microsoft-Windows-Security-Auditing
+          EventID:
+              - 4688
+        - Provider: Microsoft-Windows-Sysmon
+          EventID:
+              - 1
+ContentRelations:
+    Implements:
+        ATTACK:
+            privilege-escalation:
+                - T1548.002
+EventDescriptions:
+    - Criteria: correlation_name = "UAC_bypass_via_AccessToken_manipulation"
+      LocalizationId: corrname_UAC_bypass_via_AccessToken_manipulation
