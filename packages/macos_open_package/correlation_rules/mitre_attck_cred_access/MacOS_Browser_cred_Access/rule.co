@@ -1,0 +1,91 @@
+event Browser_Access:
+    key:
+        event_src.host, subject.process.id
+    filter {
+        filter::NotFromCorrelator()
+        and action == 'read'
+        and regex(lower(object.fullpath),"(\/users\/|~).*?(chrome|chromium|firefox|yandex|opera|safari|browser)",0 ) != null
+    }
+
+event Uncomon_Process:
+    key:
+        event_src.host, object.process.id
+    filter {
+        filter::NotFromCorrelator()
+        and action == 'execute'
+        and regex(lower(object.process.name), "chrome|chromium|firefox|yandex|opera|safari", 0) == null
+    }
+
+rule MacOS_Browser_cred_Access: Browser_Access and Uncomon_Process
+
+    on Browser_Access {
+
+        $object.name = object.name
+        $object.path = object.path
+        $object.fullpath = object.fullpath
+
+        $alert.context = object.fullpath
+
+        $subject.account.name = subject.account.name
+        $subject.account.session_id = subject.account.session_id
+        $subject.account.id = subject.account.id
+    }
+    
+    on Uncomon_Process {
+        $datafield1 = datafield1
+        $datafield2 = datafield2
+        $datafield3 = datafield3
+        $datafield4 = datafield4
+        $datafield5 = datafield5
+        $datafield6 = datafield6
+        $datafield7 = datafield7
+        $datafield8 = datafield8
+        $datafield9 = datafield9
+        $datafield10 = datafield10
+        
+        $atafield12 =  datafield12
+        $datafield13 = datafield13
+        $datafield14 = datafield14
+        $datafield15 = datafield15
+        $datafield16 = datafield16
+        $datafield17 = datafield17
+        $datafield18 = datafield18
+
+
+
+        $subject.process.id = object.process.id
+        $subject.process.name = object.process.name
+        $subject.process.path = object.process.path
+        $subject.process.fullpath = object.process.fullpath
+        $subject.process.hash = object.process.hash
+        $subject.process.cmdline = object.process.cmdline
+        $subject.process.cwd = object.process.cwd
+
+
+        $object.process.parent.name = subject.process.name
+        $object.process.parent.path = subject.process.path
+        $object.process.parent.fullpath = subject.process.fullpath
+
+        $alert.key = join([lower(object.process.name), lower($object.fullpath)], "|")
+
+    }
+
+emit {
+    $correlation_type = "incident"
+
+    $subject = "process"
+    $action = "access"
+    $object = "file_object"
+    $status = "success"
+
+    $importance = "medium"
+
+    $category.generic = "Attack"
+    $category.high = "Credential Access"
+    $category.low = "Credetial Access"
+
+    $incident.aggregation.key = join([$correlation_name, lower($event_src.host), lower($subject.account.id)], "|")
+    $incident.severity = $importance
+    $incident.category = "Undefined"
+    $incident.aggregation.timeout = 2h
+}
