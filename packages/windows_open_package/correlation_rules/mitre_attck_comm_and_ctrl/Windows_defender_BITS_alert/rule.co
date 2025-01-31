@@ -1,0 +1,55 @@
+event Defender_alert:
+    key:
+        event_src.host
+    filter {
+        msgid == "1116"
+        and event_src.subsys == "Microsoft-Windows-Windows Defender/Operational"
+        and match(lower(object.name), "*bits*")
+    }
+
+
+rule Windows_defender_BITS_alert: Defender_alert+ timer 5m
+on Defender_alert {
+
+    if $object.name == null then
+        $object.name = object.name
+    else
+        $object.name = $object.name + ";" + object.name
+    endif
+
+    if $object.path == null then
+        $object.path = object.path
+    else
+        $object.path = $object.path + ";" + object.path
+    endif
+
+    $event_src.ip = event_src.ip
+    $event_src.hostname = event_src.hostname
+    $event_src.host = event_src.host
+    $event_src.asset = event_src.asset
+    $event_src.title = event_src.title
+    $event_src.subsys = event_src.subsys
+    $event_src.vendor = event_src.vendor
+    $event_src.category = event_src.category
+    $event_src.rule = event_src.rule
+}
+
+emit {
+    $correlation_type = "incident"
+    $importance = "medium"
+
+    $action = "alert"
+    $object = "malware"
+    $status = "success"
+
+    $category.generic = "Attack"
+    $category.high = "Command and Control"
+    $category.low = "Ingress Tool Transfer"
+
+    $incident.severity = "medium"
+    $incident.category = "Undefined"
+
+    $incident.aggregation.key = join([$correlation_name, $event_src.hostname], "|")
+    $incident.severity = $importance
+    $incident.aggregation.timeout = 2h
+}

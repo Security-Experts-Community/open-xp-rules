@@ -1,0 +1,27 @@
+ContentAutoName: bits_openvpn
+ExpertContext:
+    Created: 04.07.2024
+    Updated: 21.07.2024
+    KnowledgeHolders:
+        - d3f0x0 (Vadim Varganov)
+    Usecases:
+        - Attackers can use bits tasks to download or run a file
+    Falsepositives:
+        - Administrative action
+    References:
+        - https://learn.microsoft.com/en-us/windows/win32/bits/using-winrm-windows-powershell-cmdlets-to-manage-bits-transfer-jobs
+        - https://jpcertcc.github.io/ToolAnalysisResultSheet/details/BITS.htm
+    Improvements: []
+ObjectId: SEC-CR-118607702
+ContentRelations:
+    Implements:
+        ATTACK:
+            defense-evasion:
+                - T1197
+            persistence:
+                - T1197
+            command-and-control:
+                - T1197
+EventDescriptions:
+    - Criteria: correlation_name = "Create_bits_job_and_download"
+      LocalizationId: corrname_Create_bits_job_and_download

@@ -1,0 +1,4 @@
+Description: 'Выполнена задача bitsadmin'
+EventDescriptions:
+    - LocalizationId: '4_Bits_finished_job_1'
+      EventDescription: 'На хосте {event_src.host} выполнена задача bitsadmin - {object.name}, созданная пользователем {object.account.fullname}'

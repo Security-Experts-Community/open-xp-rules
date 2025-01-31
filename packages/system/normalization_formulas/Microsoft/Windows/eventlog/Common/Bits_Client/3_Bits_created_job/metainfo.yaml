@@ -1,0 +1,7 @@
+EventDescriptions:
+    - Criteria: id = "PT_Microsoft_Windows_eventlog_3_Bits_created_job"
+      LocalizationId: 3_Bits_created_job_1
+ObjectId: SEC-NF-553054921
+ExpertContext:
+    Created: 08.07.2024
+    Updated: 09.07.2024

@@ -1,0 +1,4 @@
+Description: 'The rule detects interaction with BITS based on command line arguments and powershell cmdlets'
+EventDescriptions:
+    - LocalizationId: 'corrname_Create_bits_job_cmdline'
+      EventDescription: 'Execution of {object.process.cmdline} commands for manipulating BITS tasks was detected on the {event_src.host} host'

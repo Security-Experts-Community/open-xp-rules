@@ -1,0 +1,7 @@
+EventDescriptions:
+    - Criteria: id = "PT_Microsoft_Windows_eventlog_60_Bits_stop_job"
+      LocalizationId: 60_Bits_stop_job_1
+ObjectId: SEC-NF-936295479
+ExpertContext:
+    Created: 09.07.2024
+    Updated: 09.07.2024
