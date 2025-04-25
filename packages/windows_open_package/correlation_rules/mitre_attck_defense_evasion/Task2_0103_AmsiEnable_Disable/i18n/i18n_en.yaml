@@ -1,4 +1,4 @@
-Description: '-'
+Description: 'Running a command with the amenable parameter, which may disable system protection mechanisms'
 EventDescriptions:
   - LocalizationId: 'corrname_Task2_0103_AmsiEnable_Disable'
-    EventDescription: '-'
+    EventDescription: 'User {subject.account.name} ran a suspicious command on the {event_src.host} host'
