@@ -1,0 +1,4 @@
+Description: 'Запуск команды с параметром amsienable, которая может привести к отключению системных механизмов защиты.'
+EventDescriptions:
+  - LocalizationId: 'corrname_Task2_0103_AmsiEnable_Disable'
+    EventDescription: 'Пользователь {subject.account.name} запустил подозрительную команду на узле {event_src.host}'
