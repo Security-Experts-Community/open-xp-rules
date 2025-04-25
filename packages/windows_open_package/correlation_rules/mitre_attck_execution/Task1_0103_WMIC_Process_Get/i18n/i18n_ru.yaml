@@ -1,0 +1,4 @@
+Description: 'Обнаружен запуск wmci с параметрами process get в командной строке'
+EventDescriptions:
+  - LocalizationId: 'corrname_Task1_0103_WMIC_Process_Get'
+    EventDescription: 'Пользователь {subject.account.name} запустил процесс {object.process.name} с параметрами process get на узле {event_src.host}'

@@ -1,0 +1,25 @@
+ContentAutoName: Task1_0103_WMIC_Process_Get
+ExpertContext:
+  Created: 25.04.2025
+  Updated: 25.04.2025
+  KnowledgeHolders:
+    - '01_03'
+  Usecases:
+    - Правило обнаруживает запуск wmci с параметрами process get в командной строке
+  Falsepositives: []
+  References: []
+  Improvements: []
+  DataSources:
+    - Provider: Microsoft-Windows-Security-Auditing
+      EventID: []
+    - Provider: Microsoft-Windows-Sysmon
+      EventID: []
+ObjectId: SEC-CR-316309439
+EventDescriptions:
+  - Criteria: correlation_name = "Task1_0103_WMIC_Process_Get"
+    LocalizationId: corrname_Task1_0103_WMIC_Process_Get
+ContentRelations:
+  Implements:
+    ATTACK:
+      execution:
+        - T1047
