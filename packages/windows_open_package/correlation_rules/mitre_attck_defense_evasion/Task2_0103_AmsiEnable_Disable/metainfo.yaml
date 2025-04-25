@@ -1,0 +1,25 @@
+ContentAutoName: Task2_0103_AmsiEnable_Disable
+ExpertContext:
+  Created: 25.04.2025
+  Updated: 25.04.2025
+  KnowledgeHolders:
+    - '01_03'
+  Usecases:
+    - Правило обнаруживает запуск команды с параметром amsienable, которая может привести к отключению системных механизмов защиты
+  Falsepositives: []
+  References: []
+  Improvements: []
+  DataSources:
+    - Provider: Microsoft-Windows-Security-Auditing
+      EventID: []
+    - Provider: Microsoft-Windows-Sysmon
+      EventID: []
+ObjectId: SEC-CR-117085901
+EventDescriptions:
+  - Criteria: correlation_name = "Task2_0103_AmsiEnable_Disable"
+    LocalizationId: corrname_Task2_0103_AmsiEnable_Disable
+ContentRelations:
+  Implements:
+    ATTACK:
+      defense-evasion:
+        - T1562.001
