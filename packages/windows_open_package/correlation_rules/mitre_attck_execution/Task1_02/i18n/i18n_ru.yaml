@@ -1,0 +1,4 @@
+Description: "Запущен wmic.exe на узле DESKTOP-EOO67OB\nПравило направлено на обнаружение аномального поведения при использовании wmic.exe для манипуляций с процессами (создания или сбора информации)."
+EventDescriptions:
+  - LocalizationId: 'corrname_Task1_02'
+    EventDescription: 'Процесс {object.process.name} был выполнен на хосте {event.xer.best}'

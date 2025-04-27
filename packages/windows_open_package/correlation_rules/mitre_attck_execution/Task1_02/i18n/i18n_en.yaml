@@ -1,0 +1,4 @@
+Description: "wmic.exe launched on node DESKTOP-EOO67OB\nThe rule is aimed at detecting anomalous behavior when using wmic.exe to manipulate processes (create or collect information)."
+EventDescriptions:
+  - LocalizationId: 'corrname_Task1_02'
+    EventDescription: 'Process {object.process.name} was executed on host {event.xer.best}'
