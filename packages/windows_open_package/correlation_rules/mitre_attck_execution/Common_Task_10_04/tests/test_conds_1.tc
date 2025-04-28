@@ -1,0 +1,3 @@
+# test comment
+table_list default
+expect 1 {"correlation_name":"Common_Task_10_04"}

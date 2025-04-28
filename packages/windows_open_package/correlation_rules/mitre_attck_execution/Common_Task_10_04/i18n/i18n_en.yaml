@@ -1,0 +1,4 @@
+Description: 'The rule is designed to detect suspicious activity related to the utility wmic.exe'
+EventDescriptions:
+  - LocalizationId: 'corrname_Common_Task_10_04'
+    EventDescription: 'The process {object.process.name} uploaded the list of active processes on the node {event_src.host}'

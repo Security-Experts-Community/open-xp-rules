@@ -1,0 +1,14 @@
+ContentAutoName: Common_Task_10_04
+ExpertContext:
+  Created: 28.04.2025
+  Updated: 28.04.2025
+  KnowledgeHolders:
+    - '10_04'
+  Usecases: []
+  Falsepositives: []
+  References: []
+  Improvements: []
+ObjectId: SEC-CR-137571898
+EventDescriptions:
+  - Criteria: correlation_name = "Common_Task_10_04"
+    LocalizationId: corrname_Common_Task_10_04

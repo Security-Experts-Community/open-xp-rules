@@ -1,0 +1,4 @@
+Description: 'Правило предназначено для определения подозрительной активности, связанной с утилитой wmic.exe'
+EventDescriptions:
+  - LocalizationId: 'corrname_Common_Task_10_04'
+    EventDescription: 'Процесс {object.process.name} выгрузил список активных процессов на узле {event_src.host}'
