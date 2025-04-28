@@ -1,0 +1,4 @@
+Description: 'A rule for detecting suspicious Mimikatz activity'
+EventDescriptions:
+  - LocalizationId: 'corrname_Individual_Task_10_04'
+    EventDescription: 'Suspicious activity related to Mimikatz has been detected {{object.process.name }} on the {event_src.host} node. Command line: {object.process.cmdline}'

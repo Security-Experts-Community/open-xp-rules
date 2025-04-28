@@ -1,0 +1,4 @@
+Description: 'Правило для обнаружения подозрительной активности Mimikatz'
+EventDescriptions:
+  - LocalizationId: 'corrname_Individual_Task_10_04'
+    EventDescription: 'Обнаружена подозрительная активность, связанная с Mimikatz {object.process.name} на узле {event_src.host}. Командная строка: {object.process.cmdline}'
