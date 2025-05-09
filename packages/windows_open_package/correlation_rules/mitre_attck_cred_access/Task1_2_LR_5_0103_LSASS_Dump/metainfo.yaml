@@ -1,0 +1,27 @@
+ContentAutoName: Task1_2_LR_5_0103_LSASS_Dump
+ExpertContext:
+  Created: 09.05.2025
+  Updated: 09.05.2025
+  KnowledgeHolders:
+    - '01_03'
+  Usecases:
+    - Правило обнаруживает попытки чтения процесса lsass
+  Falsepositives: []
+  References: []
+  Improvements: []
+  DataSources:
+    - Provider: Microsoft-Windows-Security-Auditing
+      EventID:
+        - 4656
+    - Provider: Microsoft-Windows-Sysmon
+      EventID:
+        - 10
+ObjectId: SEC-CR-184873695
+EventDescriptions:
+  - Criteria: correlation_name = "Task1_2_LR_5_0103_LSASS_Dump"
+    LocalizationId: corrname_Task1_2_LR_5_0103_LSASS_Dump
+ContentRelations:
+  Implements:
+    ATTACK:
+      credential-access:
+        - T1003.001

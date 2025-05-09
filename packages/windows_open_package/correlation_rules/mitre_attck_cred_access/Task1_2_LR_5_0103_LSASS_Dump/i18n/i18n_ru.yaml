@@ -1,0 +1,4 @@
+Description: 'Получен доступ к данным процесса lsass'
+EventDescriptions:
+  - LocalizationId: 'corrname_Task1_2_LR_5_0103_LSASS_Dump'
+    EventDescription: 'Попытка получить доступ к данным процесса lsass через процесс {subject.process.name} на узле {event_src.host}'

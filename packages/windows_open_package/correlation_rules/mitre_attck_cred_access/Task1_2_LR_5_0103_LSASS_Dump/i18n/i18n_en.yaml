@@ -1,0 +1,4 @@
+Description: 'Access the lsass process data'
+EventDescriptions:
+  - LocalizationId: 'corrname_Task1_2_LR_5_0103_LSASS_Dump'
+    EventDescription: 'Access the lsass process data through the process {subject.process.name} is detected on host {event_src.host}'

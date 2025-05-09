@@ -1,0 +1,2 @@
+table_list default
+expect 1 {"correlation_name":"Task1_2_LR_5_0103_LSASS_Dump"}
