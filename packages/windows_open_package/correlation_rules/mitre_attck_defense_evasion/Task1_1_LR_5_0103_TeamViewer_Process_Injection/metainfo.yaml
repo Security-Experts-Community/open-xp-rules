@@ -1,0 +1,30 @@
+ContentAutoName: Task1_1_LR_5_0103_TeamViewer_Process_Injection
+ExpertContext:
+  Created: 09.05.2025
+  Updated: 09.05.2025
+  KnowledgeHolders:
+    - '01_03'
+  Usecases:
+    - Правило выявляет попытки открыть процесс TeamViewer с расширенными правами через цепочку вызовов kernelbase → ntdll, что характерно для инъекции кода или кражи учётных данных
+  Falsepositives: []
+  References:
+    - https://attack.mitre.org/techniques/T1055/001/
+  Improvements: []
+  DataSources:
+    - Provider: Microsoft-Windows-Security-Auditing
+      EventID:
+        - 4656
+    - Provider: Microsoft-Windows-Sysmon
+      EventID:
+        - 10
+ObjectId: SEC-CR-79031495
+ContentRelations:
+  Implements:
+    ATTACK:
+      defense-evasion:
+        - T1055.001
+      privilege-escalation:
+        - T1055.001
+EventDescriptions:
+  - Criteria: correlation_name = "Task1_1_LR_5_0103_TeamViewer_Process_Injection"
+    LocalizationId: corrname_Task1_1_LR_5_0103_TeamViewer_Process_Injection

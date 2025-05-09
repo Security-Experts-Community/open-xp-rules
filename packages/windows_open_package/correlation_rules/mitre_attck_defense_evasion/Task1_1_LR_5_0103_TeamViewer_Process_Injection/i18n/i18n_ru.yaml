@@ -1,0 +1,4 @@
+Description: 'Открыт процесс TeamViewer с расширенными правами через цепочку вызовов kernelbase → ntdll, что характерно для инъекции кода или кражи учётных данных'
+EventDescriptions:
+  - LocalizationId: 'corrname_Task1_1_LR_5_0103_TeamViewer_Process_Injection'
+    EventDescription: 'Открыт процесс {object.process.name} с правами {object.value} на узле {event_src.host}'

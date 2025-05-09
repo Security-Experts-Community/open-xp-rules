@@ -1,0 +1,4 @@
+Description: 'The TeamViewer process was opened with extended privileges via a kernelbase → ntdll call chain, a pattern typical of code-injection or credential-theft activity'
+EventDescriptions:
+  - LocalizationId: 'corrname_Task1_1_LR_5_0103_TeamViewer_Process_Injection'
+    EventDescription: 'Process {object.process.name} was opened with privileges {object.value} on host {event_src.host}'
