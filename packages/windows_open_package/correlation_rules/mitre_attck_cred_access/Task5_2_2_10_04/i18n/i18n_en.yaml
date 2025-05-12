@@ -1,0 +1,4 @@
+Description: 'Detection of Kerberos/TSSSP Attacks via Kekeo.'
+EventDescriptions:
+  - LocalizationId: 'corrname_Task5_2_2_10_04'
+    EventDescription: 'Detected Kerberos/TSSSP attack activity {subject.process.name} on host {event_src.host}.'

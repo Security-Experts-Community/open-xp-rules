@@ -1,0 +1,4 @@
+Description: 'Обнаружение попыток кражи учётных данных через дамп памяти процесса lsass.exe'
+EventDescriptions:
+  - LocalizationId: 'corrname_Task5_1_2_10_04'
+    EventDescription: 'Обнаружена подозрительная активность, связанная с Credential Dumping {object.process.name} на узле {event_src.host}. Командная строка: {object.process.cmdline}'

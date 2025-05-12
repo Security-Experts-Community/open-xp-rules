@@ -1,0 +1,4 @@
+Description: 'The rule is designed to detect suspicious activity related to the execution of the POC.exe process masquerading as a legitimate system component.'
+EventDescriptions:
+  - LocalizationId: 'corrname_Task5_4_2_10_04'
+    EventDescription: 'Detected suspicious activity related to the execution of POC.exe ({object.process.name}) on host {event_src.host}.'

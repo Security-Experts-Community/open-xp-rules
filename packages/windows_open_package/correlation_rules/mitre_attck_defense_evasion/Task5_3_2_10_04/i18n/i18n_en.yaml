@@ -1,0 +1,4 @@
+Description: 'The rule is designed to detect suspicious activity related to registry modifications for persistence mechanisms.'
+EventDescriptions:
+  - LocalizationId: 'corrname_Task5_3_2_10_04'
+    EventDescription: 'Detected suspicious registry modification activity on host {event_src.host}.'
