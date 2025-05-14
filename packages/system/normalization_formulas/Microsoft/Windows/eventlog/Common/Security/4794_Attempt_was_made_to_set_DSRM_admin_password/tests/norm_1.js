@@ -1,9 +1,8 @@
 {
     "action": "modify",
-    "category.generic": "Account",
-    "category.high": "Users And Rights Management",
-    "category.low": "Manipulation",
-    "datafield1": "12738537",
+    "category.generic": "Attack",
+    "category.high": "Persistence",
+    "category.low": "Account Manipulation",
     "event_src.category": "Directory service",
     "event_src.fqdn": "2008r2sp1-dc.ad2008r2.ru",
     "event_src.hostname": "2008r2sp1-dc",
@@ -11,9 +10,9 @@
     "event_src.title": "active_directory",
     "event_src.vendor": "microsoft",
     "id": "PT_Microsoft_Windows_eventlog_4794_Attempt_was_made_to_set_DSRM_admin_password",
-    "importance": "info",
+    "importance": "high",
     "msgid": "4794",
-    "object": "account",
+    "object": "configuration",
     "object.property": "password",
     "src.hostname": "2008r2sp1-dc",
     "status": "success",
@@ -22,8 +21,5 @@
     "subject.account.id": "S-1-5-21-1743380172-4235219263-347487665-500",
     "subject.account.name": "administrator",
     "subject.account.session_id": "12738537",
-    "subject.domain": "ad2008r2",
-    "subject.id": "S-1-5-21-1743380172-4235219263-347487665-500",
-    "subject.name": "administrator",
     "time": "2015-12-28T15:31:20.426Z"
 }
