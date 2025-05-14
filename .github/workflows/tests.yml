@@ -1,0 +1,49 @@
+name: Tests
+
+on:
+  push:
+    paths:
+      - 'common/**'
+      - 'packages/**'
+
+env:
+  KBT_VERSION: 27.0.78
+  RUNNER_HOME: /home/runner
+  KBT_ARCHIVE: /home/runner/xp-kbt.tar.gz
+  KBT_DIR: /home/runner/xp-kbt
+  TEMP_DIR: /home/runner/temp/eXtractionAndProcessing/output/packages
+
+jobs:
+  integration_tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget tar
+
+    - name: Download xp-kbt archive
+      run: |
+        KBT_URL="https://github.com/vxcontrol/xp-kbt/releases/download/${{ env.KBT_VERSION }}/kbt.${{ env.KBT_VERSION }}-linux.tar.gz"
+        wget $KBT_URL -O ${{ env.KBT_ARCHIVE }}
+
+    - name: Extract xp-kbt archive
+      run: |
+        mkdir -p ${{ env.KBT_DIR }}
+        tar -xzvf ${{ env.KBT_ARCHIVE }} -C ${{ env.KBT_DIR }}
+
+    - name: Check normalization formulas
+      run: |
+        mkdir -p ${{ env.TEMP_DIR }}
+        mkdir -p /home/runner/testf
+        cp -r /home/runner/xp-kbt/knowledgebase/contracts/taxonomy $GITHUB_WORKSPACE/contracts
+        cp -r /home/runner/xp-kbt/knowledgebase/contracts/xp_appendix /home/runner/testf
+        ${{ env.KBT_DIR }}/build-tools/formulas_tests --taxonomy=$GITHUB_WORKSPACE/contracts/taxonomy/taxonomy.json --sdk ${{ env.KBT_DIR }}/xp-sdk --xp-appendix ${{ env.RUNNER_HOME }}/testf/xp_appendix/appendix.xp --temp=${{ env.TEMP_DIR }} $GITHUB_WORKSPACE --less
+
+    - name: Run integration tests
+      run: |
+        ${{ env.KBT_DIR }}/extra-tools/siemj/siemj -c .github/config/siemj.conf main

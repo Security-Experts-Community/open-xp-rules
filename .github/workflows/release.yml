@@ -1,0 +1,58 @@
+name: Release Current Version
+
+on:
+  push:
+    tags:
+      - v*
+
+env:    
+  KBT_VERSION: 27.0.78
+  RUNNER_HOME: /home/runner
+  KBT_ARCHIVE: /home/runner/xp-kbt.tar.gz
+  KBT_DIR: /home/runner/xp-kbt
+  TEMP_DIR: /home/runner/temp/eXtractionAndProcessing/output/packages
+
+jobs:
+  release_pipeline:
+    runs-on: ubuntu-latest
+        
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+  
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget tar
+    
+    - name: Install .NET 6.0
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6.0.x'
+  
+    - name: Download xp-kbt archive
+      run: |
+        KBT_URL="https://github.com/vxcontrol/xp-kbt/releases/download/${{ env.KBT_VERSION }}/kbt.${{ env.KBT_VERSION }}-linux.tar.gz"
+        wget $KBT_URL -O ${{ env.KBT_ARCHIVE }}
+  
+    - name: Extract xp-kbt archive
+      run: |
+        mkdir -p ${{ env.KBT_DIR }}
+        tar -xzvf ${{ env.KBT_ARCHIVE }} -C ${{ env.KBT_DIR }}
+
+    - name: Package Open
+      run: |
+        mkdir -p ${{ env.TEMP_DIR }}
+        chmod +x ./.github/scripts/filter_open_content.sh
+        ./.github/scripts/filter_open_content.sh $GITHUB_WORKSPACE
+        OPEN_PACKAGE_NAME="pack.open.${{ env.KBT_VERSION }}.kb"
+        dotnet ${{ env.KBT_DIR }}/extra-tools/kbpack/kbpack.dll pack -s $GITHUB_WORKSPACE -o ${{ env.TEMP_DIR }}/$OPEN_PACKAGE_NAME
+        echo "OPEN_PACKAGE_NAME=$OPEN_PACKAGE_NAME" >> $GITHUB_ENV
+  
+    - name: Publish Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          ${{ env.TEMP_DIR }}/${{ env.OPEN_PACKAGE_NAME }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
