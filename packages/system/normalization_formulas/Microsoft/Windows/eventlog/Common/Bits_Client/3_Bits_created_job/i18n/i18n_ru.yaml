@@ -1,0 +1,4 @@
+Description: 'Создана задача bitsadmin. Может использоваться для запуска процесса'
+EventDescriptions:
+    - LocalizationId: '3_Bits_created_job_1'
+      EventDescription: 'На хосте {event_src.host} пользователем {object.account.fullname} cоздана задача bitsadmin - {object.name}'

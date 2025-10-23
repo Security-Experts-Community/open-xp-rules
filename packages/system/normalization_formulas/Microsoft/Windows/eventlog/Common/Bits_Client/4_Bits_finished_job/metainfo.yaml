@@ -1,0 +1,7 @@
+EventDescriptions:
+    - Criteria: id = "PT_Microsoft_Windows_eventlog_4_Bits_finished_job"
+      LocalizationId: 4_Bits_finished_job_1
+ObjectId: SEC-NF-679402722
+ExpertContext:
+    Created: 09.07.2024
+    Updated: 09.07.2024

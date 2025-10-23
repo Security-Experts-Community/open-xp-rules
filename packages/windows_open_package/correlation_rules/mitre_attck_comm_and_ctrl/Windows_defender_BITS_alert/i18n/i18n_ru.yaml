@@ -1,0 +1,4 @@
+Description: 'Алерт Windows Defender указывает на использование BITS'
+EventDescriptions:
+    - LocalizationId: 'corrname_Windows_defender_BITS_alert'
+      EventDescription: 'На хосте {event_src.host} Windows Defender обнаружил эксплуатацию BITS {object.name}'

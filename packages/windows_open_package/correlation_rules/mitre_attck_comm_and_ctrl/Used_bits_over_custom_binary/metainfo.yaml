@@ -1,0 +1,25 @@
+ContentAutoName: Used_bits_over_custom_binary
+ExpertContext:
+    Created: 21.07.2024
+    Updated: 14.08.2024
+    KnowledgeHolders:
+        - Vadim Varganov (d3f0x0)
+    Usecases:
+        - Upload, download or execute payload over BITS
+    Falsepositives:
+        - Administrative action
+    References: []
+    Improvements: []
+    DataSources:
+        - Provider: Microsoft-Windows-Sysmon
+          EventID:
+              - 7
+ObjectId: SEC-CR-102100675
+ContentRelations:
+    Implements:
+        ATTACK:
+            command-and-control:
+                - T1105
+EventDescriptions:
+    - Criteria: correlation_name = "Used_bits_over_custom_binary"
+      LocalizationId: corrname_Used_bits_over_custom_binary

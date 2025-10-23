@@ -1,0 +1,4 @@
+Description: 'bitsadmin task has been stopped'
+EventDescriptions:
+    - LocalizationId: '60_Bits_stop_job_1'
+      EventDescription: 'The bitsadmin task has been stopped on the {event_src.host} host - {object.name}'

@@ -1,0 +1,4 @@
+Description: 'При загрузке файла с помощью BITS, создается временный файл BIT<seq>.tmp'
+EventDescriptions:
+    - LocalizationId: 'corrname_Download_file_via_bits'
+      EventDescription: 'На хосте {event_src.host} создан временный файл службы BITS {object.fullpath}'

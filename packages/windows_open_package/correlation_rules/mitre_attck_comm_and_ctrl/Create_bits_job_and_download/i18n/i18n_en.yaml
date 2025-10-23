@@ -1,0 +1,4 @@
+Description: 'Attackers can use bits tasks to download or run a file'
+EventDescriptions:
+    - LocalizationId: 'corrname_Create_bits_job_and_download'
+      EventDescription: 'The task has been completed on the {event_src.host} host {object.name} created by the user {object.account.fullname}'

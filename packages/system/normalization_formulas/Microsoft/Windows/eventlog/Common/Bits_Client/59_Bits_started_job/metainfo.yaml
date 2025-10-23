@@ -1,0 +1,7 @@
+EventDescriptions:
+    - Criteria: id = "PT_Microsoft_Windows_eventlog_59_Bits_started_job"
+      LocalizationId: 59_Bits_started_job_1
+ObjectId: SEC-NF-201142207
+ExpertContext:
+    Created: 09.07.2024
+    Updated: 09.07.2024

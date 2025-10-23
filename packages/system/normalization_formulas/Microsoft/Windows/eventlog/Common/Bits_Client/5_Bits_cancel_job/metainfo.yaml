@@ -1,0 +1,7 @@
+EventDescriptions:
+    - Criteria: id = "PT_Microsoft_Windows_eventlog_5_Bits_cancel_job"
+      LocalizationId: 5_Bits_cancel_job_1
+ObjectId: SEC-NF-157405267
+ExpertContext:
+    Created: 09.07.2024
+    Updated: 09.07.2024

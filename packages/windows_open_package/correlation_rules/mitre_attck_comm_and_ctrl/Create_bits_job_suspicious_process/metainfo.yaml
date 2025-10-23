@@ -1,0 +1,25 @@
+ContentAutoName: Create_bits_job_suspicious_process
+ExpertContext:
+    Created: 13.08.2024
+    Updated: 13.08.2024
+    KnowledgeHolders:
+        - d3f0x0 (Vadim Varganov)
+    Usecases:
+        - Attacker create BITS for download or upload file, C2
+    Falsepositives:
+        - Administrative action
+    References: []
+    Improvements: []
+    DataSources:
+        - Provider: Microsoft-Windows-Bits-Client
+          EventID:
+              - 3
+ObjectId: SEC-CR-447239112
+ContentRelations:
+    Implements:
+        ATTACK:
+            command-and-control:
+                - T1105
+EventDescriptions:
+    - Criteria: correlation_name = "Create_bits_job_suspicious_process"
+      LocalizationId: corrname_Create_bits_job_suspicious_process

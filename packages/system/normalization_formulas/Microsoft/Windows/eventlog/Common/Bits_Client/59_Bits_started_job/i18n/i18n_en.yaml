@@ -1,0 +1,4 @@
+Description: 'The bitsadmin task has started'
+EventDescriptions:
+    - LocalizationId: '59_Bits_started_job_1'
+      EventDescription: 'The bitsadmin task has started on the {event_src.host} host - {object.name}'

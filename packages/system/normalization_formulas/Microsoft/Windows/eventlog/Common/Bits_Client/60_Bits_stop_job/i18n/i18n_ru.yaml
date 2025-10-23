@@ -1,0 +1,4 @@
+Description: 'остановлено выполнение задачи bitsadmin'
+EventDescriptions:
+    - LocalizationId: '60_Bits_stop_job_1'
+      EventDescription: 'На хосте {event_src.host} остановлено выполнение задачи bitsadmin - {object.name}'

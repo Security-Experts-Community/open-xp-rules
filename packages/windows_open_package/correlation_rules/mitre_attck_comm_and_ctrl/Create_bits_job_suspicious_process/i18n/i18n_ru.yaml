@@ -1,0 +1,4 @@
+Description: 'Создание задачи BITS процессом не из whitelist'
+EventDescriptions:
+    - LocalizationId: 'corrname_Create_bits_job_suspicious_process'
+      EventDescription: 'На хосте {event_src.host} подозрительный процесс {object.process.fullpath} создал задачу BITS'

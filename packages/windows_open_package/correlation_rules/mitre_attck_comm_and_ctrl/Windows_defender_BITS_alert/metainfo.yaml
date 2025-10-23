@@ -1,0 +1,25 @@
+ContentAutoName: Windows_defender_BITS_alert
+ExpertContext:
+    Created: 14.08.2024
+    Updated: 14.08.2024
+    KnowledgeHolders:
+        - Vadim Varganov (d3f0x0)
+    Usecases:
+        - Attacker create BITS for download or upload file, C2
+    Falsepositives:
+        - Administrative action
+    References: []
+    Improvements: []
+    DataSources:
+        - Provider: Microsoft-Windows-Security-Auditing
+          EventID:
+              - 1116
+ObjectId: SEC-CR-786275278
+ContentRelations:
+    Implements:
+        ATTACK:
+            command-and-control:
+                - T1105
+EventDescriptions:
+    - Criteria: correlation_name = "Windows_defender_BITS_alert"
+      LocalizationId: corrname_Windows_defender_BITS_alert

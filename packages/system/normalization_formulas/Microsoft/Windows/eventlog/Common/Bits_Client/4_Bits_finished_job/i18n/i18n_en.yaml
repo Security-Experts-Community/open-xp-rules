@@ -1,0 +1,4 @@
+Description: 'The bitsadmin task has been completed'
+EventDescriptions:
+    - LocalizationId: '4_Bits_finished_job_1'
+      EventDescription: 'The bitsadmin task is executed on the {event_src.host} host - {object.name} created by the user {object.account.fullname}'

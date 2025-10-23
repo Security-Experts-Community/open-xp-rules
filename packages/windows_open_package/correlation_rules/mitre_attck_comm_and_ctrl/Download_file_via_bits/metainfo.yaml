@@ -1,0 +1,28 @@
+ContentAutoName: Download_file_via_bits
+ExpertContext:
+    Created: 21.07.2024
+    Updated: 21.07.2024
+    KnowledgeHolders:
+        - d3f0x0 (Vadim Varganov)
+    Usecases:
+        - Download payload via BITS
+    Falsepositives:
+        - Administrative action
+    References: []
+    Improvements: []
+    DataSources:
+        - Provider: Microsoft-Windows-Security-Auditing
+          EventID:
+              - 4663
+        - Provider: Microsoft-Windows-Sysmon
+          EventID:
+              - 11
+ObjectId: SEC-CR-581325244
+ContentRelations:
+    Implements:
+        ATTACK:
+            command-and-control:
+                - T1105
+EventDescriptions:
+    - Criteria: correlation_name = "Download_file_via_bits"
+      LocalizationId: corrname_Download_file_via_bits

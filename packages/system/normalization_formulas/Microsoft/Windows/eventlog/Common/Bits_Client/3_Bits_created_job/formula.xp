@@ -1,0 +1,40 @@
+EVENTLOG = 'EventID="3"'
+!COND = $Channel=="Microsoft-Windows-Bits-Client/Operational" and $Provider["Name"]=="Microsoft-Windows-Bits-Client"
+
+action = "create"
+object = "task" 
+status = "success"
+
+object.name = $Data["jobTitle"] # Job name
+
+object.account.fullname = $Data["jobOwner"]
+object.account.name = csv(object.account.fullname, "\\", "")[1]
+object.account.domain = csv(object.account.fullname, "\\", "")[0]
+
+object.process.fullpath = $Data["processPath"]
+$process_name = csv(object.process.fullpath, "\\", "")
+object.process.name = $process_name[length($process_name) - 1] 
+object.process.id = $Data["processId"]
+
+object.id = $Data["jobId"]
+
+time = $TimeCreated["SystemTime"]
+
+msgid = $EventID
+
+$first_dot = find_substr($Computer, '.')
+if $first_dot != null then
+    event_src.fqdn = lower($Computer)
+    event_src.hostname = lower(substr($Computer, 0, $first_dot))
+else
+    event_src.hostname = lower($Computer)
+endif
+
+event_src.vendor = "microsoft"
+event_src.title = "windows"
+event_src.subsys = $Channel
+event_src.category = "Operating system"
+event_src.id = $Provider["Name"]
+
+
+id = "PT_Microsoft_Windows_eventlog_3_Bits_created_job"

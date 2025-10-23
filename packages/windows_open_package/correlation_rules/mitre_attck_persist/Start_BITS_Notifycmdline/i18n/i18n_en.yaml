@@ -1,0 +1,4 @@
+Description: 'The rule detects the start of child processes from svchost.exe -k netsvcs -ps BITS'
+EventDescriptions:
+    - LocalizationId: 'corrname_Start_BITS_Notifycmdline'
+      EventDescription: 'On the {event_src.host} host, the BITS service has started the process {object.process.name}, which may indicate a persistence in the system'

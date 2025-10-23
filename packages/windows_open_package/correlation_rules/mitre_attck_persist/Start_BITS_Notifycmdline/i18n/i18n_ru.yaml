@@ -1,0 +1,4 @@
+Description: 'Правило обнаруживает запуск дочерних процессов от svchost.exe -k netsvcs -p -s BITS'
+EventDescriptions:
+    - LocalizationId: 'corrname_Start_BITS_Notifycmdline'
+      EventDescription: 'На хосте {event_src.host} служба BITS запустила процесс {object.process.name}, что может свидетельствовать о закреплении в системе'

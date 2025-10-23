@@ -1,0 +1,42 @@
+ContentAutoName: Create_bits_job_cmdline
+ExpertContext:
+    Created: 09.07.2024
+    Updated: 15.08.2024
+    KnowledgeHolders:
+        - d3f0x0 (Vadim Varganov)
+    Usecases:
+        - Attacker create BITS for download or upload file, C2
+    Falsepositives:
+        - Administrative action
+    References:
+        - https://github.com/vadim-hunter/Detection-Ideas-Rules/blob/main/TTPs/Defense%20Evasion/T1197%20-%20BITS%20Jobs/Procedures.yaml
+        - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1197/T1197.md
+        - https://learn.microsoft.com/ru-ru/windows/win32/bits/background-intelligent-transfer-service-portal
+        - https://jpcertcc.github.io/ToolAnalysisResultSheet/details/BITS.htm
+    Improvements: []
+    DataSources:
+        - Provider: Microsoft-Windows-Security-Auditing
+          EventID:
+              - 4688
+        - Provider: Microsoft-Windows-Sysmon
+          EventID:
+              - 1
+        - Provider: Microsoft-Windows-PowerShell
+          EventID:
+              - 4103
+              - 4104
+ObjectId: SEC-CR-132540762
+ContentRelations:
+    Implements:
+        ATTACK:
+            persistence:
+                - T1197
+            defense-evasion:
+                - T1197
+            command-and-control:
+                - T1105
+            exfiltration:
+                - T1048
+EventDescriptions:
+    - Criteria: correlation_name = "Create_bits_job_cmdline"
+      LocalizationId: corrname_Create_bits_job_cmdline

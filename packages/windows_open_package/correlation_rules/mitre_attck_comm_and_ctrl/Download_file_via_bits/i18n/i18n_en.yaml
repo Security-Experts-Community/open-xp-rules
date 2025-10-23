@@ -1,0 +1,4 @@
+Description: 'When downloading a file using BITS, a temporary BIT<set>.tmp file is created'
+EventDescriptions:
+    - LocalizationId: 'corrname_Download_file_via_bits'
+      EventDescription: 'A temporary BITS service file has been created on the {event_src.host} host {object.fullpath}'
