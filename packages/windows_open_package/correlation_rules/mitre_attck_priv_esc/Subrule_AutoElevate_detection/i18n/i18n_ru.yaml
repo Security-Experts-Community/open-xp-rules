@@ -1,0 +1,4 @@
+Description: 'Обнаружен запуск процесса с автоматическим повышением привилегий (AutoElevate)'
+EventDescriptions:
+    - LocalizationId: 'corrname_Subrule_AutoElevate_detection'
+      EventDescription: 'Процесс {object.process.name} запущен с автоматическим повышением привилегий от имени пользователя {object.account.domain}\{object.account.name} на хосте {event_src.host}'

@@ -1,0 +1,4 @@
+Description: 'UAC bypass was detected via AccessToken manipulation'
+EventDescriptions:
+    - LocalizationId: 'corrname_UAC_bypass_via_AccessToken_manipulation'
+      EventDescription: 'Process {object.process.name} started by process {subject.process.name} with AutoElevation flag behalf of the user {object.account.domain}\{object.account.name} at host {event_src.host}'

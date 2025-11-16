@@ -1,0 +1,139 @@
+#       Emulate:
+# > git clone https://github.com/rootm0s/WinPwnage.git and install it
+# > python .\main.py --use uac --id 11 --payload c:\\windows\\system32\\cmd.exe
+
+#       How it works:
+#cmd.exe (PID: 0xa18, SubjectName: Администратор, TokenElevationTypeLimited, LogonId: 0x3bc93)
+#└── py.exe(PID: 0x988, SubjectName: Администратор, TokenElevationTypeLimited, LogonId: 0x3bc93)
+#    └── python.exe (PID: 0x944, SubjectName: Администратор, TokenElevationTypeLimited, LogonId: 0x3bc93)
+#        ├── wusa.exe (PID: 0x548, SubjectName: Администратор, TokenElevationTypeLimited, LogonId: 0x3bc93)
+#        │   ---> ProcessTerminate(wusa.exe, EventId: 4689, PID: 0x548, ExitStatus: 0xc000042c - STATUS_ELEVATION _REQUIRED)
+#        ├── wusa.exe (PID: 0xae0, SubjectName: WIN7-HACK$, TokenElevationTypeFull, LogonId: 0x3e7)
+#        │   ---> hToken = NtOpenProcessToken (ProcessName: wusa.exe, DesiredAccess: 0x02000000)
+#        │	 ---> ProcessTerminate(EventId: 4689, wusa.exe, PID: 0xae0, ExitStatus: 0xffffffff)
+#        │	 ---> newToken = DuplicateTokenEx (hToken, DesiredAccess: TOKEN_ALL_ACCESS)
+#        │	 ---> ImpersonateLoggedOnUser(newToken)
+#        │   ---> CreteProcessWithToken(u"aaa", u"bbb", u"ccc", LOGON_NETCREDENTIALS_ONLY, EventId: 4624, LogonType: 9, SubjectName = TargetName, SubjectLogonId != TargetLogonId, LogonProcessName: seclogo)
+#        └── cmd.exe (PID: 0xb24, SubjectName: WIN7-HACK$, TokenElevationTypeDefault, LogonId: 0x3e7)
+
+event AutoElevate_Detect:
+    key:
+        event_src.host, subject.account.session_id, object.process.parent.id
+    filter {
+        correlation_name == "Subrule_AutoElevate_detection"
+    }
+
+event Process_Start:
+    key:
+        event_src.host, subject.account.session_id, object.process.parent.id
+    filter {
+        filter::NotFromCorrelator()
+        and filter::ProcessStart_Windows_any() and
+        in_list(["tokenelevationtypefull", "tokenelevationtypedefault"], lower(subject.account.privileges))
+    }
+
+rule UAC_bypass_via_AccessToken_manipulation: (AutoElevate_Detect -> Process_Start with different object.process.name) timer 10s 
+    on AutoElevate_Detect {
+        $subject = "account"
+
+        $subject.process.id = object.process.id
+        $subject.process.name = object.process.name
+        $subject.process.path = object.process.path
+        $subject.process.fullpath = object.process.fullpath
+        $subject.process.hash = object.process.hash
+        $subject.process.hash.md5 = object.process.hash.md5
+        $subject.process.hash.sha1 = object.process.hash.sha1
+        $subject.process.hash.sha256 = object.process.hash.sha256
+        $subject.process.version = object.process.version
+        $subject.process.cmdline = object.process.cmdline
+        $subject.process.guid = object.process.guid
+        $subject.process.meta = object.process.meta
+        $subject.process.original_name = object.process.original_name
+        $subject.process.cwd = object.process.cwd
+        $subject.process.chain = object.process.chain
+
+        $subject.process.parent.id = object.process.parent.id
+        $subject.process.parent.name = object.process.parent.name
+        $subject.process.parent.path = object.process.parent.path
+        $subject.process.parent.fullpath = object.process.parent.fullpath
+        $subject.process.parent.guid = object.process.parent.guid
+        $subject.process.parent.cmdline = object.process.parent.cmdline
+
+        $action = "escalate"
+
+        $object = "account"
+
+        $object.account.id = object.account.id
+        $object.account.name = object.account.name
+        $object.account.domain = object.account.domain
+        $object.account.fullname = object.account.fullname
+        $object.account.session_id = object.account.session_id
+        $object.account.privileges = object.account.privileges
+
+        $status = "success"
+
+        $alert.key = object.account.privileges
+        $alert.context = "PID_" + object.process.parent.id + "_with_" + object.account.privileges
+    }
+    on Process_Start {
+        $subject.account.id = subject.account.id
+        $subject.account.name = subject.account.name
+        $subject.account.domain = subject.account.domain
+        $subject.account.fullname = subject.account.fullname
+        $subject.account.session_id = subject.account.session_id
+        $subject.account.privileges = subject.account.privileges
+
+        $object.process.id = object.process.id
+        $object.process.name = object.process.name
+        $object.process.path = object.process.path
+        $object.process.fullpath = object.process.fullpath
+        $object.process.hash = object.process.hash
+        $object.process.hash.md5 = object.process.hash.md5
+        $object.process.hash.sha1 = object.process.hash.sha1
+        $object.process.hash.sha256 = object.process.hash.sha256
+        $object.process.version = object.process.version
+        $object.process.cmdline = object.process.cmdline
+        $object.process.guid = object.process.guid
+        $object.process.meta = object.process.meta
+        $object.process.original_name = object.process.original_name
+        $object.process.cwd = object.process.cwd
+        $object.process.chain = object.process.chain
+
+        $object.process.parent.id = object.process.parent.id
+        $object.process.parent.name = object.process.parent.name
+        $object.process.parent.path = object.process.parent.path
+        $object.process.parent.fullpath = object.process.parent.fullpath
+        $object.process.parent.guid = object.process.parent.guid
+        $object.process.parent.cmdline = object.process.parent.cmdline
+
+        $event_src.ip = event_src.ip
+        $event_src.hostname = event_src.hostname
+        $event_src.fqdn = event_src.fqdn
+        $event_src.host = event_src.host
+        $event_src.asset = event_src.asset
+        $event_src.vendor = event_src.vendor
+        $event_src.title = event_src.title
+        $event_src.subsys = event_src.subsys
+        $event_src.rule = event_src.rule
+        
+        $alert.key = $alert.key + "->" + subject.account.privileges
+        $alert.context = $alert.context + "_start_process_" + object.process.name + "_with_" + subject.account.privileges + "_via_" + $subject.process.name
+    }
+
+emit {
+    $correlation_type = "incident"
+
+    $importance = "high"
+
+    $category.generic = "Attack"
+    $category.high = "Privilege Escalation"
+    $category.low = "Abuse Elevation Control Mechanism: Bypass User Account Control"
+
+    $incident.aggregation.key = join([$correlation_name, lower($event_src.host), lower($subject.account.id)], "|")
+    $incident.aggregation.timeout = 2h
+
+    $incident.severity = $importance
+
+    $incident.category = "Undefined"
+    
+}

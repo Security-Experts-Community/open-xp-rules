@@ -41,14 +41,16 @@ else
 endif
 
 object.process.id = maybe_number16($Data["NewProcessId"])
-object.process.fullpath = lower($Data["NewProcessName"])
+#object.process.fullpath = lower($Data["NewProcessName"])
+object.process.fullpath = $Data["NewProcessName"]
 $process_path = csv(object.process.fullpath, "\\", "")
 object.process.name = $process_path[length($process_path) - 1]
 object.process.path = strip(object.process.fullpath, "", object.process.name)
 object.process.cmdline = $Data['CommandLine']
 
 object.process.parent.id = maybe_number16($Data["ProcessId"])
-object.process.parent.fullpath = lower($Data["ParentProcessName"])
+#object.process.parent.fullpath = lower($Data["ParentProcessName"])
+object.process.parent.fullpath = $Data["ParentProcessName"]
 $process_parent_path = csv(object.process.parent.fullpath, "\\", "")
 object.process.parent.name = $process_parent_path[length($process_parent_path) - 1]
 object.process.parent.path = strip(object.process.parent.fullpath, "", object.process.parent.name)

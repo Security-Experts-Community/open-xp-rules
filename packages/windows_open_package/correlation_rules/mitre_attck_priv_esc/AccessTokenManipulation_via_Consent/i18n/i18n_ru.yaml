@@ -1,0 +1,4 @@
+Description: 'Обнаружен запуск дочерних процессов с различными маркерами доступа (Access Tokens).'
+EventDescriptions:
+    - LocalizationId: 'corrname_AccessTokenManipulation_via_Consent'
+      EventDescription: 'Процесс с идентификатором {object.process.parent.id} повысил свои привилегии: {alert.key} после запуска полцесса {subject.process.name} на хосте {event_src.host}'

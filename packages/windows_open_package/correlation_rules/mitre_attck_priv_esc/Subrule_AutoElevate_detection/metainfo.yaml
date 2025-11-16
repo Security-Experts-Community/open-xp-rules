@@ -1,0 +1,31 @@
+ObjectId: LOC-CR-124009838
+ContentAutoName: Subrule_AutoElevate_detection
+ExpertContext:
+    Created: 22.06.2023
+    Updated: 26.06.2023
+    KnowledgeHolders:
+        - driverenok
+    Usecases:
+        - "Легитимная активность, в результате которой процесс, имеющий в манифесте исполняемого файла опцию AutoElevate, запускается дважды: 1й запуск - с LimitedToken, 2й раз - с FullToken"
+    Falsepositives:
+        - Процессы, родителем которых является процесс explorer.exe и запускаются администраторами
+    References:
+        - https://attack.mitre.org/techniques/T1548/
+        - https://github.com/rootm0s/WinPwnage
+    DataSources:
+        - Provider: Microsoft-Windows-Security-Auditing
+          EventID:
+              - 4688
+              - 4689
+        - Provider: Microsoft-Windows-Sysmon
+          EventID:
+              - 1
+              - 5
+ContentRelations:
+    Implements:
+        ATTACK:
+            privilege-escalation:
+                - T1548
+EventDescriptions:
+    - Criteria: correlation_name = "Subrule_AutoElevate_detection"
+      LocalizationId: corrname_Subrule_AutoElevate_detection

@@ -1,0 +1,4 @@
+Description: 'Обнаружен обход UAC путем манипуляции с токенами доступа (Access Tokens)'
+EventDescriptions:
+    - LocalizationId: 'corrname_UAC_bypass_via_AccessToken_manipulation'
+      EventDescription: 'Процесс {object.process.name} запущен процессом {subject.process.name} с автоматическим повышением привилегий от имени пользователя {object.account.domain}\{object.account.name} на хосте {event_src.host}'

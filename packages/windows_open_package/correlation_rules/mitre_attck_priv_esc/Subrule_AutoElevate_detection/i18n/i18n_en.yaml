@@ -1,0 +1,4 @@
+Description: 'AutoElevate process start was detected'
+EventDescriptions:
+    - LocalizationId: 'corrname_Subrule_AutoElevate_detection'
+      EventDescription: 'Process {object.process.name} started with AutoElevation flag behalf of the user {object.account.domain}\{object.account.name} at host {event_src.host}'

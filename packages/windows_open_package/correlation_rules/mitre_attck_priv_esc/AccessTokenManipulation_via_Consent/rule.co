@@ -1,0 +1,118 @@
+event Process_Start:
+    key:
+        event_src.host#, subject.account.session_id
+    filter {
+        filter::NotFromCorrelator() and
+        filter::ProcessStart_Windows_any() and
+        object.process.name == "consent.exe"
+    }
+
+event Process_Start_with_DifferentTokens:
+    key:
+        event_src.host#, subject.account.session_id
+    filter {
+        correlation_name == "Subrule_CreateChildProcess_with_DifferentTokens"
+    }
+
+rule AccessTokenManipulation_via_Consent: Process_Start and Process_Start_with_DifferentTokens #(Process_Start and ) with different object.process.parent.id within 10s
+
+    on Process_Start {
+        $object.account.name = subject.account.name
+        $object.account.domain = subject.account.domain
+        $object.account.fullname = subject.account.fullname
+        $object.account.id = subject.account.id
+        $object.account.session_id = subject.account.session_id
+        $object.account.privileges = subject.account.privileges
+
+        $event_src.ip = event_src.ip
+        $event_src.hostname = event_src.hostname
+        $event_src.fqdn = event_src.fqdn
+        $event_src.host = event_src.host
+        $event_src.asset = event_src.asset
+        $event_src.vendor = event_src.vendor
+        $event_src.title = event_src.title
+        $event_src.subsys = event_src.subsys
+        $event_src.rule = event_src.rule
+
+        $subject.process.id = object.process.id
+        $subject.process.name = object.process.name
+        $subject.process.path = object.process.path
+        $subject.process.fullpath = object.process.fullpath
+        $subject.process.hash = object.process.hash
+        $subject.process.hash.md5 = object.process.hash.md5
+        $subject.process.hash.sha1 = object.process.hash.sha1
+        $subject.process.hash.sha256 = object.process.hash.sha256
+        $subject.process.version = object.process.version
+        $subject.process.cmdline = object.process.cmdline
+        $subject.process.guid = object.process.guid
+        $subject.process.meta = object.process.meta
+        $subject.process.original_name = object.process.original_name
+        $subject.process.cwd = object.process.cwd
+        $subject.process.chain = object.process.chain
+    }
+
+    #on Process_Start {
+    #    $subject.process.id = object.process.id
+    #    $subject.process.name = object.process.name
+    #    $subject.process.path = object.process.path
+    #    $subject.process.fullpath = object.process.fullpath
+    #    $subject.process.guid = object.process.guid
+    #    $subject.process.cmdline = object.process.cmdline
+    #}
+
+    on Process_Start_with_DifferentTokens {
+        $subject.account.name = subject.account.name
+        $subject.account.domain = subject.account.domain
+        $subject.account.fullname = subject.account.fullname
+        $subject.account.session_id = subject.account.session_id
+        $subject.account.id = subject.account.id
+        $subject.account.privileges = subject.account.privileges
+
+        $object.process.id = object.process.id
+        $object.process.name = object.process.name
+        $object.process.path = object.process.path
+        $object.process.fullpath = object.process.fullpath
+        $object.process.hash = object.process.hash
+        $object.process.hash.md5 = object.process.hash.md5
+        $object.process.hash.sha1 = object.process.hash.sha1
+        $object.process.hash.sha256 = object.process.hash.sha256
+        $object.process.version = object.process.version
+        $object.process.cmdline = object.process.cmdline
+        $object.process.guid = object.process.guid
+        $object.process.meta = object.process.meta
+        $object.process.original_name = object.process.original_name
+        $object.process.cwd = object.process.cwd
+        $object.process.chain = object.process.chain
+
+        $object.process.parent.id = object.process.parent.id
+        $object.process.parent.name = object.process.parent.name
+        $object.process.parent.path = object.process.parent.path
+        $object.process.parent.fullpath = object.process.parent.fullpath
+        $object.process.parent.guid = object.process.parent.guid
+        $object.process.parent.cmdline = object.process.parent.cmdline
+
+        #$alert.key = $object.account.privileges + "->" $subject.account.privileges
+        
+    }
+
+emit {
+    $correlation_type = "incident"
+
+    $subject = "account"
+    $action = "escalate"
+    $object = "account"
+    $status = "success"
+
+    $importance = "medium"
+
+    $category.generic = "Attack"
+    $category.high = "Privilege Escalation"
+    $category.low = "Access Token Manipulation"
+
+    $incident.aggregation.key = join([$correlation_name, lower($event_src.host), lower($object.account.name)], "|")
+    $incident.aggregation.timeout = 2h
+
+    $incident.severity = $importance
+    
+    $incident.category = "Undefined"
+}
