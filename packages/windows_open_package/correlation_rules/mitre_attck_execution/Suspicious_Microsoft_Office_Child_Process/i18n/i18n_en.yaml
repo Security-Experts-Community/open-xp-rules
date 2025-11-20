@@ -1,0 +1,4 @@
+Description: 'Suspicious Microsoft Office child process has been detected'
+EventDescriptions:
+    - LocalizationId: 'corrname_Suspicious_Microsoft_Office_Child_Process'
+      EventDescription: 'Suspicious child process {object.process.name} has been created by {object.process.parent.name} at host {event_src.host}'

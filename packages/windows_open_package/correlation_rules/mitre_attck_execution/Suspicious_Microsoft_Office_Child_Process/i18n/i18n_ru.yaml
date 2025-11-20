@@ -1,0 +1,4 @@
+Description: 'Обнаружен подозрительный процесс, созданный приложением MS Office'
+EventDescriptions:
+    - LocalizationId: 'corrname_Suspicious_Microsoft_Office_Child_Process'
+      EventDescription: 'Обнаружен подозрительный процесс {object.process.name}, созданный приложением MS Office {object.process.parent.name}, на узле {event_src.host}'

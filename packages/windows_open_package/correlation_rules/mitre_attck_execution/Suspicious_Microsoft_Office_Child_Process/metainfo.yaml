@@ -1,0 +1,30 @@
+ContentAutoName: Suspicious_Microsoft_Office_Child_Process
+ExpertContext:
+    Created: 16.07.2024
+    Updated: 29.07.2024
+    KnowledgeHolders:
+        - driverenok
+    Usecases:
+        - Атакующие могут использовать инструментарий MS Office чтобы создавать дочерние процессы
+    Falsepositives: []
+    References:
+        - https://github.com/SigmaHQ/sigma/blob/568f1aef336e62a0c52bc28e6b635950ca900f97/rules/windows/process_creation/proc_creation_win_office_susp_child_processes.yml
+        - https://t.me/ptescalator/24
+        - https://docs.logpoint.com/docs/alert-rules/en/latest/MITRE%20ATT&CK%20Analytics.html
+    Improvements: []
+    DataSources:
+        - Provider: Microsoft-Windows-Security-Auditing
+          EventID:
+              - 4688
+        - Provider: Microsoft-Windows-Sysmon
+          EventID:
+              - 1
+ObjectId: SEC-CR-189386588
+ContentRelations:
+    Implements:
+        ATTACK:
+            execution:
+                - T1204.002
+EventDescriptions:
+    - Criteria: correlation_name = "Suspicious_Microsoft_Office_Child_Process"
+      LocalizationId: corrname_Suspicious_Microsoft_Office_Child_Process
