@@ -1,0 +1,4 @@
+Description: 'Правило детектирует доступ к чувствительным данным браузера сторонним процессом'
+EventDescriptions:
+    - LocalizationId: 'corrname_MacOS_Browser_cred_Access'
+      EventDescription: 'Процесс {subject.process.name} с pid {subject.process.id} получил доступ к файлу браузера {object.fullpath}'
