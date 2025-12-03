@@ -1,0 +1,1 @@
+{"event_src":{"title":"sysmon"},"msgid":"1","object":{"process":{"fullpath":"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe","cmdline":"powershell.exe -ExecutionPolicy Unrestricted -Command \"reg add HKCU\\Software\\Microsoft\\Windows Script\\Settings /v AmsiEnable /t REG_DWORD /d 0 /f\""}}}

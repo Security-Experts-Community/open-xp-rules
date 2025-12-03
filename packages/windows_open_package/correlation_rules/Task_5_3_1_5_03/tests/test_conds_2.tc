@@ -1,0 +1,5 @@
+# Вайтлистинг
+table_list default
+table_list {"Common_whitelist_auto": [{"rule": "Task_5_3_1_5_03", "specific_value": ""}]}
+
+expect not {"correlation_name": "Task_5_3_1_5_03"}
