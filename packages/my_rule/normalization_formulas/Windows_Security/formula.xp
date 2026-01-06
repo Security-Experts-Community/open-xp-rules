@@ -1,0 +1,35 @@
+XML = "Event.System"
+
+
+if $Event["System"]["EventID"]["!"] == "4624" then
+    subject = "account"
+    object = "host"
+    action = "login"
+    status = "success"
+endif
+
+if $Event["System"]["EventID"]["!"] == "4634" then
+    subject = "account"
+    object = "host"
+    action = "logout"
+    status = "success"
+endif
+
+subject.process.id = $Event["System"]["Execution"]["@ProcessID"]
+subject.process.name = $Event["EventData"]["Data"][17]["!"]
+
+subject.account.name = $Event["EventData"]["Data"][1]["!"]
+subject.account.fullname = subject.account.fullname
+subject.account.domain =  $Event["EventData"]["Data"][2]["!"]
+subject.account.session_id = subject.account.session_id
+subject.account.id = $Event["EventData"]["Data"][0]["!"]
+subject.account.privileges = subject.account.privileges
+
+src.hostname = $Event["System"]["Computer"]["!"]
+src.fqdn = src.hostname 
+
+time =  $Event["System"]["TimeCreated"]["@SystemTime"]
+msgid = $Event["System"]["EventID"]["!"]
+
+event_src.vendor = "microsoft"
+event_src.title = $Event["System"]["Channel"]["!"]

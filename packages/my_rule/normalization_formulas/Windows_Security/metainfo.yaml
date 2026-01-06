@@ -1,0 +1,7 @@
+EventDescriptions:
+  - Criteria: id = "LOC_Vendor_Title_transport_event_name"
+    LocalizationId: LOC_Vendor_Title_transport_event_name_1
+ExpertContext:
+  Created: 06.01.2026
+  Updated: 06.01.2026
+ObjectId: SEC-NF-14561122
