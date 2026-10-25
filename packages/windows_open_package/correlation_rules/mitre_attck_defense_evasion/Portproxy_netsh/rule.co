@@ -29,13 +29,14 @@ event Process_netsh:
 
         and 
         (
-            msgid == "1" and event_src.title == "sysmon"
+            (
+                msgid == "1" and event_src.title == "sysmon"
+            )
+            or
+            (
+                msgid == "4688" and event_src.title == "windows"
+            )
         )
-        or
-        (
-            msgid == "4688" and event_src.title == "windows"
-        )
-
         and object == "process"
         and object.process.name == "netsh.exe"
 
